@@ -182,6 +182,12 @@ SC_MODULE(mips) {
    sc_signal < sc_uint<32> > const4;   // contant 4
    sc_signal < bool > const1;          // contant 4
 
+   sc_signal < bool > reset_haz_ifid;
+   sc_signal < bool > reset_ifid;
+   sc_signal < bool > reset_haz_exemem;
+   sc_signal < bool > reset_exemem;
+   
+
    SC_CTOR(mips) {
        buildArchitecture();
    }

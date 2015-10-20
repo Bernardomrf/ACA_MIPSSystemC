@@ -73,6 +73,7 @@ void mips::buildID(void)
       rfile->regwrite(WriteReg_wb);
       rfile->data1( regdata1 );
       rfile->data2( regdata2 );
+      rfile->enable( const1 );
 
       rfile->wr(RegWrite_wb);
       rfile->datawr(WriteVal);

@@ -1,5 +1,5 @@
 //MIPSarch.cpp
-// 
+//
 // Widget to display MIPS architecture
 //
 
@@ -59,7 +59,7 @@ MIPSarchCanvas::MIPSarchCanvas(mips &m, QObject *parent) : Q3Canvas(parent), mip
     instStage.push_back(qText);
     pcStage.push_back(new PortValRead(mips1.reg_id_exe->PC_exe,"PC_exe"));
     validpcStage.push_back(new PortValRead(mips1.reg_id_exe->valid_exe,"valid_PC_exe"));
-    
+
     qText=new Q3CanvasText("nop",this);
     qText->setTextFlags(Qt::AlignLeft | Qt::AlignTop);
     qText->setVisible(true);
@@ -346,7 +346,7 @@ MIPSarchCanvas::MIPSarchCanvas(mips &m, QObject *parent) : Q3Canvas(parent), mip
     portValVec.push_back(portVal);
 
     //WB
-    
+
     portVal=new PortValItem(this,mips1.reg_mem_wb->memOut_wb, "memOut_wb");
     portVal->move(806,290);
     portVal->setColor(QColor("blue"));
@@ -425,7 +425,7 @@ MIPSarchCanvas::~MIPSarchCanvas()
  */
 MIPSarch::MIPSarch( mips &m, QWidget* parent,  const char* name, Qt::WFlags fl )
     : Q3CanvasView(0, parent, name, fl )
-{   
+{
     archCanvas=new MIPSarchCanvas(m,this);
     setCanvas(archCanvas);
 
@@ -441,7 +441,7 @@ MIPSarch::MIPSarch( mips &m, QWidget* parent,  const char* name, Qt::WFlags fl )
     setFocusPolicy(Qt::StrongFocus);
 }
 
-/*  
+/*
  *  Destroys the object and frees any allocated resources
  */
 MIPSarch::~MIPSarch()
@@ -466,13 +466,13 @@ void MIPSarch::contentsMousePressEvent(QMouseEvent *e)
 /*
 
     QPoint pos=e->pos();
-    if(pos.x() > 80 && pos.x() < 112 
+    if(pos.x() > 80 && pos.x() < 112
        && pos.y()> 200 && pos.y() < 270)
        emit imemClicked();
-    if(pos.x() > 320 && pos.x() < 370 
+    if(pos.x() > 320 && pos.x() < 370
        && pos.y()> 190 && pos.y() < 300)
        emit regfileClicked();
-    if(pos.x() > 590 && pos.x() < 645 
+    if(pos.x() > 590 && pos.x() < 645
        && pos.y()> 220 && pos.y() < 280)
        emit dmemClicked();
 */
