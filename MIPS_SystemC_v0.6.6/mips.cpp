@@ -146,12 +146,12 @@ void mips::buildEXE(void)
       sl2->din(imm_exe);
       sl2->dout(addr_ext);
 
-      // Adds Branch Immediate to Program Counter + 4
+      /* Adds Branch Immediate to Program Counter + 4
       addbr = new add ("addbr");
 
       addbr->op1(PC4_exe);
       addbr->op2(addr_ext);
-      addbr->res(BranchTarget);
+      addbr->res(BranchTarget);*/
 
 }
 

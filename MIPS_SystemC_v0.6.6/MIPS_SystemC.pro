@@ -15,7 +15,7 @@ HEADERS		= mips.h\
 		  GUI/regs.xpm GUI/datamem.xpm GUI/instmem.xpm \
 		  GUI/readimem.xpm GUI/readdmem.xpm
 SOURCES		= main.cpp mips.cpp\
-                  imem.cpp decode.cpp regfile.cpp alu.cpp dmem.cpp control.cpp\
+                  imem.cpp decode.cpp regfile.cpp alu.cpp dmem.cpp control.cpp branch.cpp\
 		  mem32.cpp reg.cpp add.cpp gates.cpp ext.cpp shiftl2.cpp\
 		  hazard.cpp\
 		  mipsaux.cpp\

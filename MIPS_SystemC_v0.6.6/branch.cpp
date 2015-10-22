@@ -6,11 +6,11 @@
  */
 void branch::branch_detect()
 {
+    sc_uint<32> target32 = jtarget.read();
     switch(opcode.read())
     {
         case 2:
             BranchTaken.write(true);
-            sc_uint<32> target32 = jtarget.read();
             BranchTarget.write(target32 | (PC4.read() & 0xF000));
             break;
 
