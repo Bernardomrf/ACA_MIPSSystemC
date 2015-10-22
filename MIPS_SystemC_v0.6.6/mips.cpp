@@ -83,13 +83,13 @@ void mips::buildID2(void)
       mr = new mux< sc_uint<5> > ("muxRDst");
 
       mr->sel(RegDst);
-      mr->din0(rt);
-      mr->din1(rd);
+      mr->din0(rt_id2);
+      mr->din1(rd_id2);
       mr->dout(WriteReg_id2);
 
       // 16 to 32 bit signed Immediate extension
       e1 = new ext("ext");
-      e1->din(imm);
+      e1->din(imm_id2);
       e1->dout(imm_ext);
 
       // Control
@@ -203,9 +203,13 @@ void mips::buildArchitecture(void){
       reg_if_id->valid_if(const1);
       reg_if_id->valid_id(valid_id);
       reg_if_id->clk(clk);
-      reg_if_id->reset(reset);
+      reg_if_id->reset(reset_ifid);
       reg_if_id->enable(enable_ifid);
 
+	  or_reset_ifid = new orgate("or_reset_ifid");
+      or_reset_ifid->din1(reset);
+      or_reset_ifid->din2(reset_haz_ifid);
+      or_reset_ifid->dout(reset_ifid);
 
       buildID1();
 
@@ -248,6 +252,8 @@ void mips::buildArchitecture(void){
       reg_id2_exe->PC4_exe(PC4_exe);
       reg_id2_exe->WriteReg_id(WriteReg_id2);
       reg_id2_exe->WriteReg_exe(WriteReg_exe);
+
+      //control
       reg_id2_exe->MemRead_id(MemRead);
       reg_id2_exe->MemRead_exe(MemRead_exe);
       reg_id2_exe->MemWrite_id(MemWrite);
@@ -262,6 +268,7 @@ void mips::buildArchitecture(void){
       reg_id2_exe->ALUSrc_exe(ALUSrc_exe);
       reg_id2_exe->ALUOp_id(ALUOp);
       reg_id2_exe->ALUOp_exe(ALUOp_exe);
+
       reg_id2_exe->PC_id(PC_id);
       reg_id2_exe->PC_exe(PC_exe);
       reg_id2_exe->valid_id(valid_id);
@@ -275,15 +282,12 @@ void mips::buildArchitecture(void){
       or_reset_id2exe->din2(reset_haz_id2exe);
       or_reset_id2exe->dout(reset_id2exe);
 
-      or_reset_ifid = new orgate("or_reset_ifid");
-      or_reset_ifid->din1(reset);
-      or_reset_ifid->din2(reset_haz_ifid);
-      or_reset_ifid->dout(reset_ifid);
 
-      or_reset_exemem = new orgate("or_reset_exemem");
-      or_reset_exemem->din1(reset);
-      or_reset_exemem->din2(reset_haz_exemem);
-      or_reset_exemem->dout(reset_exemem);
+
+      or_reset_exmem = new orgate("or_reset_exmem");
+      or_reset_exmem->din1(reset);
+      or_reset_exmem->din2(reset_haz_exmem);
+      or_reset_exmem->dout(reset_exmem);
 
 
 
@@ -317,7 +321,7 @@ void mips::buildArchitecture(void){
       reg_exe_mem->valid_exe(valid_exe);
       reg_exe_mem->valid_mem(valid_mem);
       reg_exe_mem->clk(clk);
-      reg_exe_mem->reset(reset);
+      reg_exe_mem->reset(reset_exmem);
       reg_exe_mem->enable(const1);
 
       buildMEM();
@@ -353,9 +357,10 @@ void mips::buildArchitecture(void){
       hazard_unit->RegWrite_mem(RegWrite_mem);
       hazard_unit->enable_pc(enable_pc);
       hazard_unit->enable_ifid(enable_ifid);
+      hazard_unit->reset_id1id2(reset_haz_id1id2);
       hazard_unit->reset_id2exe(reset_haz_id2exe);
       hazard_unit->reset_ifid(reset_haz_ifid);
-      hazard_unit->reset_exemem(reset_haz_exemem);
+      hazard_unit->reset_exemem(reset_haz_exmem);
       hazard_unit->MemRead(MemRead);
       hazard_unit->BranchTaken(BranchTaken);
    }
@@ -386,4 +391,5 @@ mips::~mips(void)
       delete reg_id2_exe;
       delete reg_exe_mem;
       delete reg_mem_wb;
+	  delete or_reset_exmem;
 }

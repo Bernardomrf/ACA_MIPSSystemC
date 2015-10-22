@@ -61,23 +61,24 @@ SC_MODULE(mips) {
 
 
    //ID2
-   regfile           *rfile;     // register file
    control           *ctrl;      // control
    mux< sc_uint<5> >  *mr;       // selects destination register
    ext *e1;                      // sign extends imm to 32 bits
    orgate *or_reset_id2exe;
-   hazard *hazard_unit;
+
 
    //ID1
-   decode            *dec1;      // decodes instruction
+   decode *dec1;      // decodes instruction
    orgate *or_reset_id1id2;
+   hazard *hazard_unit;
+   regfile *rfile;     // register file
 
    //EXE
    alu               *alu1;      // ALU
    mux< sc_uint<32> > *m1;       // selects 2nd ALU operand
    shiftl2 *sl2;                 // shift left 2 imm_ext
    add *addbr;                   // adds imm to PC + 4
-   orgate *or_reset_exemem;
+   orgate *or_reset_exmem;
 
    //MEM
    dmem              *datamem;   // data memory
@@ -157,6 +158,7 @@ SC_MODULE(mips) {
    sc_signal < sc_uint<32> > imm_exe, PC4_exe;
    sc_signal < sc_uint<32> > addr_ext; // imm_ext shift left 2
    sc_signal < sc_uint<5> > WriteReg_exe;
+   sc_signal <bool> reset_haz_exmem, reset_exmem;
    // ALU signals
    sc_signal < sc_uint<32> > ALUIn2,   // ALU second operand
                              ALUOut;   // ALU Output
@@ -203,8 +205,6 @@ SC_MODULE(mips) {
 
    sc_signal < bool > reset_haz_ifid;
    sc_signal < bool > reset_ifid;
-   sc_signal < bool > reset_haz_exemem;
-   sc_signal < bool > reset_exemem;
 
 
    SC_CTOR(mips) {

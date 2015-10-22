@@ -16,7 +16,7 @@ void hazard::detect_hazard()
 		enable_ifid.write(false);
 		reset_id2exe.write(true);
 	}
-	else if (BranchTaken==true){
+	else if (BranchTaken.read()==true){
 	    enable_pc.write(true);
 		reset_id2exe.write(true);
 		reset_ifid.write(true);
@@ -29,4 +29,3 @@ void hazard::detect_hazard()
 		reset_id2exe.write(false);
 	}
 }
-

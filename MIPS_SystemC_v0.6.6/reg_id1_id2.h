@@ -37,24 +37,24 @@ SC_MODULE(reg_id1_id2_t) {
 
 	regT < sc_uint<32> > *PC4;
 	regT < sc_uint<16> > *imm;
-	regT < sc_uint<5> > *regrt,*regrd;
+	regT < sc_uint<5> > *rt,*rd;
 	regT < sc_uint<6> > *opcode,*funct;
 
 	SC_CTOR(reg_id1_id2_t) {
 
-		regrt = new regT < sc_uint<5> > ("regrt");;
-		regrt->din(rt_id1);
-		regrt->dout(rt_id2);
-		regrt->clk(clk);
-		regrt->enable(enable);
-		regrt->reset(reset);
+		rt = new regT < sc_uint<5> > ("rt");;
+		rt->din(rt_id1);
+		rt->dout(rt_id2);
+		rt->clk(clk);
+		rt->enable(enable);
+		rt->reset(reset);
 
-		regrd = new regT < sc_uint<5> >("regrd");
-		regrd->din(rd_id1);
-		regrd->dout(rd_id2);
-		regrd->clk(clk);
-		regrd->enable(enable);
-		regrd->reset(reset);
+		rd = new regT < sc_uint<5> >("rd");
+		rd->din(rd_id1);
+		rd->dout(rd_id2);
+		rd->clk(clk);
+		rd->enable(enable);
+		rd->reset(reset);
 
 		PC4 = new regT < sc_uint<32> >("PC4");
 		PC4->din(PC4_id1);
