@@ -141,7 +141,7 @@ void mips::buildEXE(void)
       alu1->dout(ALUOut);
       alu1->zero(Zero);
 
-      // shift left 2 imm_ext
+      /* shift left 2 imm_ext
       sl2 = new shiftl2("sl2");
       sl2->din(imm_exe);
       sl2->dout(addr_ext);
@@ -265,8 +265,8 @@ void mips::buildArchitecture(void){
       reg_id2_exe->regb_exe(regb_exe);
       reg_id2_exe->imm_id(imm_ext);
       reg_id2_exe->imm_exe(imm_exe);
-      reg_id2_exe->PC4_id(PC4_id2);
-      reg_id2_exe->PC4_exe(PC4_exe);
+      //reg_id2_exe->PC4_id(PC4_id2);
+      //reg_id2_exe->PC4_exe(PC4_exe);
       reg_id2_exe->WriteReg_id(WriteReg_id2);
       reg_id2_exe->WriteReg_exe(WriteReg_exe);
 
@@ -277,8 +277,8 @@ void mips::buildArchitecture(void){
       reg_id2_exe->MemWrite_exe(MemWrite_exe);
       reg_id2_exe->MemtoReg_id(MemtoReg);
       reg_id2_exe->MemtoReg_exe(MemtoReg_exe);
-      reg_id2_exe->Branch_id(Branch);
-      reg_id2_exe->Branch_exe(Branch_exe);
+      //reg_id2_exe->Branch_id(Branch);
+      //reg_id2_exe->Branch_exe(Branch_exe);
       reg_id2_exe->RegWrite_id(RegWrite);
       reg_id2_exe->RegWrite_exe(RegWrite_exe);
       reg_id2_exe->ALUSrc_id(ALUSrc);
@@ -321,14 +321,14 @@ void mips::buildArchitecture(void){
       reg_exe_mem->MemWrite_mem(MemWrite_mem);
       reg_exe_mem->MemtoReg_exe(MemtoReg_exe);
       reg_exe_mem->MemtoReg_mem(MemtoReg_mem);
-      reg_exe_mem->Branch_exe(Branch_exe);
-      reg_exe_mem->Branch_mem(Branch_mem);
+      //reg_exe_mem->Branch_exe(Branch_exe);
+      //reg_exe_mem->Branch_mem(Branch_mem);
       reg_exe_mem->RegWrite_exe(RegWrite_exe);
       reg_exe_mem->RegWrite_mem(RegWrite_mem);
-      reg_exe_mem->Zero_exe(Zero);
-      reg_exe_mem->Zero_mem(Zero_mem);
-      reg_exe_mem->BranchTarget_exe(BranchTarget);
-      reg_exe_mem->BranchTarget_mem(BranchTarget_mem);
+      //reg_exe_mem->Zero_exe(Zero);
+      //reg_exe_mem->Zero_mem(Zero_mem);
+      //reg_exe_mem->BranchTarget_exe(BranchTarget);
+      //reg_exe_mem->BranchTarget_mem(BranchTarget_mem);
       reg_exe_mem->regb_exe(regb_exe);
       reg_exe_mem->regb_mem(regb_mem);
       reg_exe_mem->WriteReg_exe(WriteReg_exe);
