@@ -57,8 +57,8 @@ MIPSarchCanvas::MIPSarchCanvas(mips &m, QObject *parent) : Q3Canvas(parent), mip
     qText->move(484,6);
     qText->setColor(QColor("red"));
     instStage.push_back(qText);
-    pcStage.push_back(new PortValRead(mips1.reg_id_exe->PC_exe,"PC_exe"));
-    validpcStage.push_back(new PortValRead(mips1.reg_id_exe->valid_exe,"valid_PC_exe"));
+    pcStage.push_back(new PortValRead(mips1.reg_id2_exe->PC_exe,"PC_exe"));
+    validpcStage.push_back(new PortValRead(mips1.reg_id2_exe->valid_exe,"valid_PC_exe"));
 
     qText=new Q3CanvasText("nop",this);
     qText->setTextFlags(Qt::AlignLeft | Qt::AlignTop);
@@ -197,53 +197,53 @@ MIPSarchCanvas::MIPSarchCanvas(mips &m, QObject *parent) : Q3Canvas(parent), mip
     portVal->setColor(QColor("blue"));
     portValVec.push_back(portVal);
 
-    portVal=new PortValItem(this,mips1.hazard_unit->reset_idexe, "reset_haz_idexe");
+    portVal=new PortValItem(this,mips1.hazard_unit->reset_id2exe, "reset_haz_id2exe");
     portVal->move(280,422);
     portVal->setColor(QColor("blue"));
     portValVec.push_back(portVal);
 
     //EXE
-    portVal=new PortValItem(this,mips1.reg_id_exe->RegWrite_exe, "RegWrite_exe");
+    portVal=new PortValItem(this,mips1.reg_id2_exe->RegWrite_exe, "RegWrite_exe");
     portVal->move(475,54);
     portVal->setColor(QColor("blue"));
     portValVec.push_back(portVal);
 
-    portVal=new PortValItem(this,mips1.reg_id_exe->MemtoReg_exe, "MemtoReg_exe");
+    portVal=new PortValItem(this,mips1.reg_id2_exe->MemtoReg_exe, "MemtoReg_exe");
     portVal->move(475,66);
     portVal->setColor(QColor("blue"));
     portValVec.push_back(portVal);
 
-    portVal=new PortValItem(this,mips1.reg_id_exe->Branch_exe, "Branch_exe");
+    portVal=new PortValItem(this,mips1.reg_id2_exe->Branch_exe, "Branch_exe");
     portVal->move(475,78);
     portVal->setColor(QColor("blue"));
     portValVec.push_back(portVal);
 
-    portVal=new PortValItem(this,mips1.reg_id_exe->MemRead_exe, "MemRead_exe");
+    portVal=new PortValItem(this,mips1.reg_id2_exe->MemRead_exe, "MemRead_exe");
     portVal->move(475,90);
     portVal->setColor(QColor("blue"));
     portValVec.push_back(portVal);
 
-    portVal=new PortValItem(this,mips1.reg_id_exe->MemWrite_exe, "MemWrite_exe");
+    portVal=new PortValItem(this,mips1.reg_id2_exe->MemWrite_exe, "MemWrite_exe");
     portVal->move(475,102);
     portVal->setColor(QColor("blue"));
     portValVec.push_back(portVal);
 
-    portVal=new PortValItem(this,mips1.reg_id_exe->ALUSrc_exe, "ALUSrc_exe");
+    portVal=new PortValItem(this,mips1.reg_id2_exe->ALUSrc_exe, "ALUSrc_exe");
     portVal->move(475,114);
     portVal->setColor(QColor("blue"));
     portValVec.push_back(portVal);
 
-    portVal=new PortValItem(this,mips1.reg_id_exe->ALUOp_exe, "ALUOp_exe");
+    portVal=new PortValItem(this,mips1.reg_id2_exe->ALUOp_exe, "ALUOp_exe");
     portVal->move(475,126);
     portVal->setColor(QColor("blue"));
     portValVec.push_back(portVal);
 
-    portVal=new PortValItem(this,mips1.reg_id_exe->rega_exe, "rega_exe");
+    portVal=new PortValItem(this,mips1.reg_id2_exe->rega_exe, "rega_exe");
     portVal->move(472,220);
     portVal->setColor(QColor("blue"));
     portValVec.push_back(portVal);
 
-    portVal=new PortValItem(this,mips1.reg_id_exe->regb_exe, "regb_exe");
+    portVal=new PortValItem(this,mips1.reg_id2_exe->regb_exe, "regb_exe");
     portVal->move(472,250);
     portVal->setColor(QColor("blue"));
     portValVec.push_back(portVal);
@@ -253,12 +253,12 @@ MIPSarchCanvas::MIPSarchCanvas(mips &m, QObject *parent) : Q3Canvas(parent), mip
     portVal->setColor(QColor("blue"));
     portValVec.push_back(portVal);
 
-    portVal=new PortValItem(this,mips1.reg_id_exe->WriteReg_exe, "WriteReg_exe");
+    portVal=new PortValItem(this,mips1.reg_id2_exe->WriteReg_exe, "WriteReg_exe");
     portVal->move(475,348);
     portVal->setColor(QColor("blue"));
     portValVec.push_back(portVal);
 
-    portVal=new PortValItem(this,mips1.reg_id_exe->PC4_exe, "PC4_exe");
+    portVal=new PortValItem(this,mips1.reg_id2_exe->PC4_exe, "PC4_exe");
     portVal->move(472,171);
     portVal->setColor(QColor("blue"));
     portValVec.push_back(portVal);

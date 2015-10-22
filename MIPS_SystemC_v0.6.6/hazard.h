@@ -22,7 +22,7 @@
  *   - output ports
  *   	- \c bool \c enable_pc      - enables PC update
  *   	- \c bool \c enable_ifid    - enables IF/ID update
- *   	- \c bool \c reset_idexe    - resets IF/EXE
+ *   	- \c bool \c reset_id2exe    - resets IF/EXE
  */
 
 SC_MODULE( hazard )
@@ -35,7 +35,7 @@ SC_MODULE( hazard )
     sc_in < bool > BranchTaken;       // execute branch
 
 
-    sc_out< bool >  enable_pc, enable_ifid, reset_idexe, reset_ifid, reset_exemem;        
+    sc_out< bool >  enable_pc, enable_ifid, reset_id2exe, reset_ifid, reset_exemem;        
 
     SC_CTOR(hazard)
     {      

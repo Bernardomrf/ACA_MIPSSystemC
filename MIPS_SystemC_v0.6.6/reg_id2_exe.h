@@ -1,9 +1,9 @@
-#ifndef REG_ID_EXE_H
-#define REG_ID_EXE_H
+#ifndef REG_ID2_EXE_H
+#define REG_ID2_EXE_H
 
 /**
  *
- * reg_id_exe_t module interface.
+ * reg_id2_exe_t module interface.
  */
 
 #include <systemc.h>
@@ -11,14 +11,14 @@
 #include "regT.h"
 
 /**
- * reg_id_exe_t module.
- * reg_id_exe_t module is the ID/EXE pipeline register. 
+ * reg_id2_exe_t module.
+ * reg_id2_exe_t module is the ID/EXE pipeline register. 
  */
 
-SC_MODULE(reg_id_exe_t) {
+SC_MODULE(reg_id2_exe_t) {
 
 	// Ports
-	
+
 	sc_in  < bool > clk;
 	sc_in  < bool > reset;
 	sc_in  < bool > enable;
@@ -29,8 +29,8 @@ SC_MODULE(reg_id_exe_t) {
 	sc_in  < sc_uint<5> > WriteReg_id;
 	sc_out < sc_uint<5> > WriteReg_exe;
 
-	sc_in  < bool > MemRead_id, MemWrite_id, MemtoReg_id; 
-	sc_out < bool > MemRead_exe, MemWrite_exe, MemtoReg_exe; 
+	sc_in  < bool > MemRead_id, MemWrite_id, MemtoReg_id;
+	sc_out < bool > MemRead_exe, MemWrite_exe, MemtoReg_exe;
 
 	sc_in  < bool > Branch_id, ALUSrc_id, RegWrite_id;
 	sc_out < bool > Branch_exe, ALUSrc_exe, RegWrite_exe;
@@ -44,16 +44,16 @@ SC_MODULE(reg_id_exe_t) {
 	sc_out < bool > valid_exe;      // only for visualization purposes
 
 	// Modules
-	
+
 	regT < sc_uint<32> > *rega,*regb,*imm,*PC4;
-	regT < bool > *MemRead, *MemWrite, *MemtoReg, *Branch, *RegWrite, *ALUSrc; 
+	regT < bool > *MemRead, *MemWrite, *MemtoReg, *Branch, *RegWrite, *ALUSrc;
 	regT < sc_uint<5> > *WriteReg;
 	regT < sc_uint<3> > *ALUOp;
 
 	regT < sc_uint<32> > *PC;      // only for visualization purposes
 	regT < bool > *valid;          // only for visualization purposes
 
-	SC_CTOR(reg_id_exe_t) {
+	SC_CTOR(reg_id2_exe_t) {
 
 		rega = new regT < sc_uint<32> > ("rega");;
 		rega->din(rega_id);
