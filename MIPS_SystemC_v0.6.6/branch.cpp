@@ -1,0 +1,37 @@
+
+#include "branch.h"
+
+/**
+ * \c Branch module callback function.
+ */
+void branch::branch_detect()
+{
+    switch(opcode.read())
+    {
+        case 2:
+            BranchTaken.write(true);
+            sc_uint<32> target32 = jtarget.read();
+            BranchTarget.write(target32 | (PC4.read() & 0xF000));
+            break;
+
+        case 4:
+            if (rs.read() == rt.read() & branch.read() == true){
+                BranchTaken.write(true);
+                BranchTarget.write(PC4.read() + (imm_ext.read() << 2));
+            }
+            break;
+
+        case 5:
+            break;
+
+        case 6:
+            break;
+
+        case 7:
+            break;
+
+        case 8:
+            break;
+
+    }
+}
