@@ -22,15 +22,29 @@ void branch::branch_detect()
             break;
 
         case 5:
+            if (rs.read() != rt.read() & branch.read() == true){
+                BranchTaken.write(true);
+                BranchTarget.write(PC4.read() + (imm_ext.read() << 2));
+            }
             break;
 
         case 6:
+            if (rs.read() <= 0 & branch.read() == true){
+                BranchTaken.write(true);
+                BranchTarget.write(PC4.read() + (imm_ext.read() << 2));
+            }
             break;
 
         case 7:
+            if (rs.read() > 0 & branch.read() == true){
+                BranchTaken.write(true);
+                BranchTarget.write(PC4.read() + (imm_ext.read() << 2));
+            }
             break;
 
         case 8:
+            BranchTaken.write(true);
+            BranchTarget.write(rs.read());
             break;
 
     }

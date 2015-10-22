@@ -20,10 +20,8 @@ void hazard::detect_hazard()
 
 	}
 	else if (BranchTaken.read()==true){
-	    enable_pc.write(true);
-		reset_id1id2.write(true);
-		reset_id2exe.write(true);
-		reset_exemem.write(true);
+	  enable_pc.write(true);
+		reset_ifid.write(true);
 
 	}
 	else {
