@@ -15,28 +15,28 @@ void branch::branch_detect()
             break;
 
         case 4:
-            if (rs.read() == rt.read() & branch.read() == true){
+            if (rs.read() == rt.read() & branch_in.read() == true){
                 BranchTaken.write(true);
                 BranchTarget.write(PC4.read() + (imm_ext.read() << 2));
             }
             break;
 
         case 5:
-            if (rs.read() != rt.read() & branch.read() == true){
+            if (rs.read() != rt.read() & branch_in.read() == true){
                 BranchTaken.write(true);
                 BranchTarget.write(PC4.read() + (imm_ext.read() << 2));
             }
             break;
 
         case 6:
-            if (rs.read() <= 0 & branch.read() == true){
+            if (rs.read() <= 0 & branch_in.read() == true){
                 BranchTaken.write(true);
                 BranchTarget.write(PC4.read() + (imm_ext.read() << 2));
             }
             break;
 
         case 7:
-            if (rs.read() > 0 & branch.read() == true){
+            if (rs.read() > 0 & branch_in.read() == true){
                 BranchTaken.write(true);
                 BranchTarget.write(PC4.read() + (imm_ext.read() << 2));
             }

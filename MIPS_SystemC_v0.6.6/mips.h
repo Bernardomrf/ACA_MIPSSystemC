@@ -17,6 +17,7 @@
 #include "dmem.h"
 #include "control.h"
 #include "hazard.h"
+#include "branch.h"
 
 #include "mux.h"
 #include "reg.h"
@@ -65,7 +66,7 @@ SC_MODULE(mips) {
    mux< sc_uint<5> >  *mr;       // selects destination register
    ext *e1;                      // sign extends imm to 32 bits
    orgate *or_reset_id2exe;
-
+   branch *branch_unit;
 
    //ID1
    decode *dec1;      // decodes instruction
@@ -114,6 +115,7 @@ SC_MODULE(mips) {
    sc_signal < sc_uint<6> > opcode;
    sc_signal < sc_uint<5> > shamt;
    sc_signal < sc_uint<6> > funct;
+   sc_signal < sc_uint<26> > target_id1;
 
    //do not delete
    sc_signal < sc_uint<32> > rega_exe, // value of register rs EXE phase
@@ -127,10 +129,11 @@ SC_MODULE(mips) {
    sc_signal < sc_uint<32> > PC4_id2;
    sc_signal < sc_uint<5> > WriteReg_id2;  // register to write
    sc_signal < sc_uint<16> > imm_id2;
-   sc_signal < sc_uint<5> > rt_id2, rd_id2;
+   sc_signal < sc_uint<5> > rt_id2, rd_id2, rs_id2;
    sc_signal < sc_uint<6> > opcode_id2;
    sc_signal < sc_uint<5> > shamt_id2;
    sc_signal < sc_uint<6> > funct_id2;
+   sc_signal < sc_uint<26> > target_id2;
 
    sc_signal < sc_uint<32> > regdata1, // value of register rs
                              regdata2, // value of regiter rt

@@ -37,7 +37,7 @@ void mips::buildIF(void)
 
       mPC->sel(BranchTaken);
       mPC->din0(PC4);
-      mPC->din1(BranchTarget_mem);
+      mPC->din1(BranchTarget);
       mPC->dout(NPC);
 }
 
@@ -91,6 +91,18 @@ void mips::buildID2(void)
       e1 = new ext("ext");
       e1->din(imm_id2);
       e1->dout(imm_ext);
+
+      // Branch
+      branch_unit = new branch("branch");
+      branch_unit->rs(rs_id2);
+      branch_unit->rt(rt_id2);
+      branch_unit->branch_in(Branch);
+      branch_unit->opcode(opcode_id2);
+      branch_unit->jtarget(target_id2);
+      branch_unit->imm_ext(imm_ext);
+      branch_unit->PC4(PC4_id2);
+      branch_unit->BranchTaken(BranchTaken);
+      branch_unit->BranchTarget(BranchTarget);
 
       // Control
       ctrl = new control ("control");
@@ -158,12 +170,13 @@ void mips::buildMEM(void)
       datamem->rd(MemRead_mem);
       datamem->clk(clk);
 
-      // Enables Branch
+      /* Enables Branch
       a1 = new andgate ("a1");
 
       a1->din1(Branch_mem);
       a1->din2(Zero_mem);
       a1->dout(BranchTaken);
+      */
 }
 
 /**
@@ -219,6 +232,8 @@ void mips::buildArchitecture(void){
       reg_id1_id2->rt_id2(rt_id2);
       reg_id1_id2->rd_id1(rd);
       reg_id1_id2->rd_id2(rd_id2);
+      reg_id1_id2->rs_id1(rs);
+      reg_id1_id2->rs_id2(rs_id2);
       reg_id1_id2->imm_id1(imm);
       reg_id1_id2->imm_id2(imm_id2);
       reg_id1_id2->PC4_id1(PC4_id);
@@ -227,6 +242,8 @@ void mips::buildArchitecture(void){
       reg_id1_id2->opcode_id2(opcode_id2);
       reg_id1_id2->funct_id1(funct);
       reg_id1_id2->funct_id2(funct_id2);
+      reg_id1_id2->target_id1(target_id1);
+      reg_id1_id2->target_id2(target_id2);
 
       reg_id1_id2->clk(clk);
       reg_id1_id2->reset(reset_id1id2);
