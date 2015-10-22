@@ -13,8 +13,8 @@
  * hazard module is the hazard detection unit.
  *
  *   - input ports
- *   	- \c sc_uint<5> \c rs	   - first register being read 
- *   	- \c sc_uint<5> \c rt	   - second register being read 
+ *   	- \c sc_uint<5> \c rs	   - first register being read
+ *   	- \c sc_uint<5> \c rt	   - second register being read
  *   	- \c sc_uint<5> \c WriteReg_exe	   - register to be written (EXE)
  *   	- \c sc_uint<5> \c WriteReg_mem	   - register to be written (MEM)
  *   	- \c bool \c RegWrite_exe	   - control signal of writing registers (EXE)
@@ -27,25 +27,25 @@
 
 SC_MODULE( hazard )
 {
-  public: 
+  public:
     sc_in< sc_uint<5> >  rs;
-    sc_in< sc_uint<5> >  rt;        
-    sc_in< sc_uint<5> >  WriteReg_exe, WriteReg_mem;        
-    sc_in< bool >  RegWrite_exe, RegWrite_mem, MemRead; 
+    sc_in< sc_uint<5> >  rt;
+    sc_in< sc_uint<5> >  WriteReg_exe, WriteReg_mem;
+    sc_in< bool >  RegWrite_exe, RegWrite_mem, MemRead;
     sc_in < bool > BranchTaken;       // execute branch
 
 
-    sc_out< bool >  enable_pc, enable_ifid, reset_id2exe, reset_ifid, reset_exemem;        
+    sc_out< bool >  enable_pc, enable_ifid, reset_id1id2, reset_id2exe, reset_ifid, reset_exemem;        
 
     SC_CTOR(hazard)
-    {      
+    {
         SC_METHOD(detect_hazard);
-        sensitive << rs << rt 
+        sensitive << rs << rt
 		  << WriteReg_exe << RegWrite_exe
 		  << WriteReg_mem << RegWrite_mem
 		  << MemRead << BranchTaken;
    }
-  
+
     void detect_hazard();
 };
 

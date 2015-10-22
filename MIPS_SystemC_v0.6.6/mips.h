@@ -88,6 +88,7 @@ SC_MODULE(mips) {
 
    //pipeline registers
    reg_if_id_t       *reg_if_id;
+   reg_id1_id2_t      *reg_id1_id2;
    reg_id2_exe_t      *reg_id2_exe;
    reg_exe_mem_t     *reg_exe_mem;
    reg_mem_wb_t      *reg_mem_wb;
@@ -112,31 +113,44 @@ SC_MODULE(mips) {
    sc_signal < sc_uint<6> > opcode;
    sc_signal < sc_uint<5> > shamt;
    sc_signal < sc_uint<6> > funct;
-   // register file signals
-   sc_signal < sc_uint<5> > WriteReg;  // register to write
 
-   sc_signal < sc_uint<32> > regdata1, // value of register rs
-                             regdata2, // value of regiter rt
-			     WriteVal; // value to write in register WriteReg
-
-   sc_signal < sc_uint<32> > imm_ext;  // imm sign extended
-
+   //do not delete
    sc_signal < sc_uint<32> > rega_exe, // value of register rs EXE phase
                              regb_exe, // value of regiter rt EXE phase
                              regb_mem; // value of regiter rt MEM phase
 
-   sc_signal <bool> reset_haz_id2exe, reset_id2exe;
-   // control signals
-   sc_signal <bool> MemRead, MemWrite, MemtoReg;
-   sc_signal <bool> RegWrite, RegDst;
-   sc_signal <bool> ALUSrc;
-   sc_signal < sc_uint<3> > ALUOp;
-   sc_signal <bool> Branch;
+   sc_signal <bool> reset_haz_id1id2, reset_id1id2;
 
-   // the following two signals are not used by the architecture
-   // they are used only for visualization purposes
-   sc_signal < sc_uint<32> > PC_id;      // PC of instruction in ID
-   sc_signal < bool >        valid_id;   // true if there is an instruction in ID
+
+   //ID2
+   sc_signal < sc_uint<32> > PC4_id2;
+   sc_signal < sc_uint<5> > WriteReg_id2;  // register to write
+   sc_signal < sc_uint<16> > imm_id2;
+   sc_signal < sc_uint<5> > rt_id2, rd_id2;
+   sc_signal < sc_uint<6> > opcode_id2;
+   sc_signal < sc_uint<5> > shamt_id2;
+   sc_signal < sc_uint<6> > funct_id2;
+
+   sc_signal < sc_uint<32> > regdata1, // value of register rs
+                             regdata2, // value of regiter rt
+                             WriteVal; // value to write in register WriteReg
+
+    sc_signal < sc_uint<32> > imm_ext;  // imm sign extended
+
+    sc_signal <bool> reset_haz_id2exe, reset_id2exe;
+
+    // control signals
+    sc_signal <bool> MemRead, MemWrite, MemtoReg;
+    sc_signal <bool> RegWrite, RegDst;
+    sc_signal <bool> ALUSrc;
+    sc_signal < sc_uint<3> > ALUOp;
+    sc_signal <bool> Branch;
+
+    // the following two signals are not used by the architecture
+    // they are used only for visualization purposes
+    sc_signal < sc_uint<32> > PC_id;      // PC of instruction in ID
+    sc_signal < bool >        valid_id;   // true if there is an instruction in ID
+
 
    //EXE
    sc_signal < bool > Zero;            // ALU output is zero
@@ -202,7 +216,8 @@ SC_MODULE(mips) {
    void buildArchitecture();
 
    void buildIF();
-   void buildID();
+   void buildID1();
+   void buildID2();
    void buildEXE();
    void buildMEM();
    void buildWB();

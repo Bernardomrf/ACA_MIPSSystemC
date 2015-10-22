@@ -22,7 +22,7 @@ public:
 		  sc_port_base &pc,          // PC output port
 		  sc_port_base &pc_id,       // PC in ID (output of reg_if_id)
 		  sc_port_base &valid_id,    // true if PC in ID valid
-		  sc_port_base &pc_exe,      // PC in EXE (output of reg_id_exe)
+		  sc_port_base &pc_exe,      // PC in EXE (output of reg_id2_exe)
 		  sc_port_base &valid_exe,   // true if PC in EXE valid
 		  sc_port_base &pc_mem, 
 		  sc_port_base &valid_mem, 

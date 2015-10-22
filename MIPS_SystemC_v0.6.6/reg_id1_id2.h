@@ -3,7 +3,7 @@
 
 /**
  *
- * reg_id1_id2_t module interface.
+ * reg_id2_exe_t module interface.
  */
 
 #include <systemc.h>
@@ -11,8 +11,8 @@
 #include "regT.h"
 
 /**
- * reg_id1_id2_t module.
- * reg_id1_id2_t module is the ID/EXE pipeline register.
+ * reg_id2_exe_t module.
+ * reg_id2_exe_t module is the ID/EXE pipeline register.
  */
 
 SC_MODULE(reg_id1_id2_t) {
