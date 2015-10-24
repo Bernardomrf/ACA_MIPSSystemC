@@ -122,7 +122,7 @@ SC_MODULE(mips) {
                              regb_exe, // value of regiter rt EXE phase
                              regb_mem; // value of regiter rt MEM phase
 
-   sc_signal <bool> reset_haz_id1id2, reset_id1id2;
+   sc_signal <bool> reset_haz_id1id2, reset_id1id2, reset_exemem, enable_id1id2, enable_id2exe;
 
 
    //ID2
@@ -141,7 +141,7 @@ SC_MODULE(mips) {
 
     sc_signal < sc_uint<32> > imm_ext;  // imm sign extended
 
-    sc_signal <bool> reset_haz_id2exe, reset_id2exe;
+    sc_signal <bool> reset_haz_id2exe, reset_id2exe, reset_regs, enable_regs;
 
     // control signals
     sc_signal <bool> MemRead, MemWrite, MemtoReg;

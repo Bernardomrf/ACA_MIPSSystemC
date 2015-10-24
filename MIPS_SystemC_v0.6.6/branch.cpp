@@ -15,28 +15,30 @@ void branch::branch_detect()
             break;
 
         case 4:
-            if (rs.read() == rt.read() & branch_in.read() == true){
+            perror("BEQ");
+            if (rs.read() == rt.read() && branch_in.read() == true){
+                perror("ENTROU");
                 BranchTaken.write(true);
                 BranchTarget.write(PC4.read() + (imm_ext.read() << 2));
             }
             break;
 
         case 5:
-            if (rs.read() != rt.read() & branch_in.read() == true){
+            if (rs.read() != rt.read() && branch_in.read() == true){
                 BranchTaken.write(true);
                 BranchTarget.write(PC4.read() + (imm_ext.read() << 2));
             }
             break;
 
         case 6:
-            if (rs.read() <= 0 & branch_in.read() == true){
+            if (rs.read() <= 0 && branch_in.read() == true){
                 BranchTaken.write(true);
                 BranchTarget.write(PC4.read() + (imm_ext.read() << 2));
             }
             break;
 
         case 7:
-            if (rs.read() > 0 & branch_in.read() == true){
+            if (rs.read() > 0 && branch_in.read() == true){
                 BranchTaken.write(true);
                 BranchTarget.write(PC4.read() + (imm_ext.read() << 2));
             }
@@ -45,6 +47,10 @@ void branch::branch_detect()
         case 8:
             BranchTaken.write(true);
             BranchTarget.write(rs.read());
+            break;
+
+        default:
+            BranchTaken.write(false);
             break;
 
     }

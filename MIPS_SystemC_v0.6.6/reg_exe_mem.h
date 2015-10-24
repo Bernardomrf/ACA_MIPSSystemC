@@ -72,12 +72,12 @@ SC_MODULE(reg_exe_mem_t) {
 		WriteReg->enable(enable);
 		WriteReg->reset(reset);
 
-		BranchTarget = new regT < sc_uint<32> > ("BranchTarget");;
-		BranchTarget->din(BranchTarget_exe);
-		BranchTarget->dout(BranchTarget_mem);
-		BranchTarget->clk(clk);
-		BranchTarget->enable(enable);
-		BranchTarget->reset(reset);
+		// BranchTarget = new regT < sc_uint<32> > ("BranchTarget");;
+		// BranchTarget->din(BranchTarget_exe);
+		// BranchTarget->dout(BranchTarget_mem);
+		// BranchTarget->clk(clk);
+		// BranchTarget->enable(enable);
+		// BranchTarget->reset(reset);
 
 		MemRead = new regT < bool >("MemRead");
 		MemRead->din(MemRead_exe);
