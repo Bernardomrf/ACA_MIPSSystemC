@@ -70,7 +70,7 @@ SC_MODULE(mips) {
 
    //ID1
    decode *dec1;      // decodes instruction
-   orgate *or_reset_id1id2;
+   orgate *or_reset_id1id2, *or_reset_regs;
    hazard *hazard_unit;
    regfile *rfile;     // register file
 
@@ -141,7 +141,7 @@ SC_MODULE(mips) {
 
     sc_signal < sc_uint<32> > imm_ext;  // imm sign extended
 
-    sc_signal <bool> reset_haz_id2exe, reset_id2exe, reset_regs, enable_regs;
+    sc_signal <bool> reset_haz_id2exe, reset_haz_regs, reset_id2exe, reset_regs, enable_regs;
 
     // control signals
     sc_signal <bool> MemRead, MemWrite, MemtoReg;

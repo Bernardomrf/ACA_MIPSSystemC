@@ -256,6 +256,11 @@ void mips::buildArchitecture(void){
       or_reset_id1id2->din2(reset_haz_id1id2);
       or_reset_id1id2->dout(reset_id1id2);
 
+      or_reset_regs = new orgate("or_reset_regs");
+      or_reset_regs->din1(reset);
+      or_reset_regs->din2(reset_haz_regs);
+      or_reset_regs->dout(reset_regs);
+
 
       buildID2();
 
@@ -382,7 +387,7 @@ void mips::buildArchitecture(void){
       hazard_unit->MemRead(MemRead);
       hazard_unit->BranchTaken(BranchTaken);
       hazard_unit->enable_regs(enable_regs);
-      hazard_unit->reset_regs(reset_regs);
+      hazard_unit->reset_regs(reset_haz_regs);
 
    }
 
