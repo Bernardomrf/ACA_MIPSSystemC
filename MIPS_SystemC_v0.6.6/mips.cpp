@@ -71,7 +71,7 @@ void mips::buildID1(void)
       rfile->datawr(WriteVal);
 
       rfile->clk(clk);
-      rfile->reset(reset);
+      rfile->reset(reset_id1id2);
 }
 
 /**
@@ -198,10 +198,12 @@ void mips::buildArchitecture(void){
       reg_if_id->inst_id(inst_id);
       reg_if_id->PC4_if(PC4);
       reg_if_id->PC4_id(PC4_id);
+
       reg_if_id->PC_if(PC);
-      reg_if_id->PC_id(PC_id);
+      reg_if_id->PC_id1(PC_id1);
       reg_if_id->valid_if(const1);
-      reg_if_id->valid_id(valid_id);
+      reg_if_id->valid_id1(valid_id1);
+
       reg_if_id->clk(clk);
       reg_if_id->reset(reset_ifid);
       reg_if_id->enable(enable_ifid);
@@ -231,6 +233,11 @@ void mips::buildArchitecture(void){
       reg_id1_id2->clk(clk);
       reg_id1_id2->reset(reset_id1id2);
       reg_id1_id2->enable(const1);
+
+      reg_id1_id2->PC_id1(PC_id1);
+      reg_id1_id2->PC_id2(PC_id2);
+      reg_id1_id2->valid_id1(valid_id1);
+      reg_id1_id2->valid_id2(valid_id2);
 
       or_reset_id1id2 = new orgate("or_reset_id1id2");
       or_reset_id1id2->din1(reset);
@@ -269,10 +276,11 @@ void mips::buildArchitecture(void){
       reg_id2_exe->ALUOp_id(ALUOp);
       reg_id2_exe->ALUOp_exe(ALUOp_exe);
 
-      reg_id2_exe->PC_id(PC_id);
+      reg_id2_exe->PC_id2(PC_id2);
       reg_id2_exe->PC_exe(PC_exe);
-      reg_id2_exe->valid_id(valid_id);
+      reg_id2_exe->valid_id2(valid_id2);
       reg_id2_exe->valid_exe(valid_exe);
+
       reg_id2_exe->clk(clk);
       reg_id2_exe->reset(reset_id2exe);
       reg_id2_exe->enable(const1);

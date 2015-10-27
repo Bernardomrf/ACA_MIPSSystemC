@@ -14,20 +14,22 @@ class PortValRead;
  */
 
 class MIPSimemview : public MIPSmemview
-{ 
+{
     Q_OBJECT
 
 public:
-    MIPSimemview( imem &m, 
+    MIPSimemview( imem &m,
 		  sc_port_base &pc,          // PC output port
-		  sc_port_base &pc_id,       // PC in ID (output of reg_if_id)
-		  sc_port_base &valid_id,    // true if PC in ID valid
+		  sc_port_base &pc_id1,       // PC in ID (output of reg_if_id)
+		  sc_port_base &valid_id1,    // true if PC in ID valid
+          sc_port_base &pc_id2,       // PC in ID (output of reg_if_id)
+		  sc_port_base &valid_id2,    // true if PC in ID valid
 		  sc_port_base &pc_exe,      // PC in EXE (output of reg_id2_exe)
 		  sc_port_base &valid_exe,   // true if PC in EXE valid
-		  sc_port_base &pc_mem, 
-		  sc_port_base &valid_mem, 
-		  sc_port_base &pc_wb, 
-		  sc_port_base &valid_wb, 
+		  sc_port_base &pc_mem,
+		  sc_port_base &valid_mem,
+		  sc_port_base &pc_wb,
+		  sc_port_base &valid_wb,
 		  QWidget* parent = 0, const char* name = 0, Qt::WFlags fl = 0 );
     virtual ~MIPSimemview();
 public slots:
@@ -36,7 +38,7 @@ protected:
     virtual QString MemItem(unsigned int i);
     virtual unsigned int current(void);
 private:
-    PortValRead *PC, *PC_id, *Valid_id, *PC_exe, *Valid_exe, 
+    PortValRead *PC, *PC_id1, *Valid_id1, *PC_id2, *Valid_id2, *PC_exe, *Valid_exe,
                 *PC_mem, *Valid_mem, *PC_wb, *Valid_wb;
 };
 

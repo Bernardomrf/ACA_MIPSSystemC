@@ -17,21 +17,21 @@ void hazard::detect_hazard()
 		enable_pc.write(false);
 		enable_ifid.write(false);
 		reset_id1id2.write(true);
-
-	}
-	else if (BranchTaken.read()==true){
-	    enable_pc.write(true);
-		reset_id1id2.write(true);
-		reset_id2exe.write(true);
-		reset_exemem.write(true);
-
+		perror("HAZARD");
 	}
 	else {
-	        enable_pc.write(true);
+	    enable_pc.write(true);
 		enable_ifid.write(true);
 		reset_id1id2.write(false);
 		reset_id2exe.write(false);
 		reset_ifid.write(false);
 		reset_exemem.write(false);
+	}
+	if (BranchTaken.read()==true){
+	    enable_pc.write(true);
+		reset_id1id2.write(true);
+		reset_id2exe.write(true);
+		reset_exemem.write(true);
+
 	}
 }

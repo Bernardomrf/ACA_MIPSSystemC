@@ -40,6 +40,14 @@ SC_MODULE(reg_id1_id2_t) {
 	regT < sc_uint<5> > *rt,*rd;
 	regT < sc_uint<6> > *opcode,*funct;
 
+	regT < sc_uint<32> > *PC;        // only for visualization purposes
+	regT < bool > *valid;            // only for visualization purposes
+
+	sc_in  < sc_uint<32> > PC_id1;     // only for visualization purposes
+	sc_in  < bool >        valid_id1;  // only for visualization purposes
+	sc_out < sc_uint<32> > PC_id2;     // only for visualization purposes
+	sc_out < bool >        valid_id2;  // only for visualization purposes
+
 	SC_CTOR(reg_id1_id2_t) {
 
 		rt = new regT < sc_uint<5> > ("rt");;
@@ -83,6 +91,20 @@ SC_MODULE(reg_id1_id2_t) {
 		funct->clk(clk);
 		funct->enable(enable);
 		funct->reset(reset);
+
+		PC = new regT < sc_uint<32> > ("PC");;
+		PC->din(PC_id1);
+		PC->dout(PC_id2);
+		PC->clk(clk);
+		PC->enable(enable);
+		PC->reset(reset);
+
+		valid = new regT < bool > ("valid");;
+		valid->din(valid_id1);
+		valid->dout(valid_id2);
+		valid->clk(clk);
+		valid->enable(enable);
+		valid->reset(reset);
 
 	}
 };

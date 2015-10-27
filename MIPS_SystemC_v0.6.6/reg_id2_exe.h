@@ -12,7 +12,7 @@
 
 /**
  * reg_id2_exe_t module.
- * reg_id2_exe_t module is the ID/EXE pipeline register. 
+ * reg_id2_exe_t module is the ID/EXE pipeline register.
  */
 
 SC_MODULE(reg_id2_exe_t) {
@@ -38,9 +38,9 @@ SC_MODULE(reg_id2_exe_t) {
 	sc_in  < sc_uint<3> > ALUOp_id;
 	sc_out < sc_uint<3> > ALUOp_exe;
 
-	sc_in  < sc_uint<32> > PC_id;   // only for visualization purposes
+	sc_in  < sc_uint<32> > PC_id2;   // only for visualization purposes
 	sc_out < sc_uint<32> > PC_exe;  // only for visualization purposes
-	sc_in  < bool > valid_id;       // only for visualization purposes
+	sc_in  < bool > valid_id2;       // only for visualization purposes
 	sc_out < bool > valid_exe;      // only for visualization purposes
 
 	// Modules
@@ -140,14 +140,14 @@ SC_MODULE(reg_id2_exe_t) {
 		ALUOp->reset(reset);
 
 		PC = new regT < sc_uint<32> >("PC");
-		PC->din(PC_id);
+		PC->din(PC_id2);
 		PC->dout(PC_exe);
 		PC->clk(clk);
 		PC->enable(enable);
 		PC->reset(reset);
 
 		valid = new regT < bool >("valid");
-		valid->din(valid_id);
+		valid->din(valid_id2);
 		valid->dout(valid_exe);
 		valid->clk(clk);
 		valid->enable(enable);

@@ -33,7 +33,7 @@
 #include "datamem.xpm"
 #include "regs.xpm"
 
-/** 
+/**
  * MIPSctrl contructor.
  */
 MIPSctrl::MIPSctrl( sc_signal<bool> &clock, sc_signal<bool> &rset, mips &m, QWidget* parent,  const char* name, Qt::WFlags fl )
@@ -54,7 +54,7 @@ MIPSctrl::MIPSctrl( sc_signal<bool> &clock, sc_signal<bool> &rset, mips &m, QWid
 	Q3PopupMenu *viewMenu = new Q3PopupMenu( this );
 	menuBar()->insertItem( "&View", viewMenu );
 
-        //windows 
+        //windows
         windowsMenu = new Q3PopupMenu( this );
         windowsMenu->setCheckable( TRUE );
         connect( windowsMenu, SIGNAL( aboutToShow() ),
@@ -91,10 +91,12 @@ MIPSctrl::MIPSctrl( sc_signal<bool> &clock, sc_signal<bool> &rset, mips &m, QWid
 	mdi->addWindow(mods);
 
         //instruction memory
-        imemview = new MIPSimemview(*mips1.instmem, 
+        imemview = new MIPSimemview(*mips1.instmem,
 			            mips1.instmem->addr,
-			            mips1.reg_if_id->PC_id,
-			            mips1.reg_if_id->valid_id,
+			            mips1.reg_if_id->PC_id1,
+			            mips1.reg_if_id->valid_id1,
+                        mips1.reg_id1_id2->PC_id2,
+			            mips1.reg_id1_id2->valid_id2,
 			            mips1.reg_id2_exe->PC_exe,
 			            mips1.reg_id2_exe->valid_exe,
 			            mips1.reg_exe_mem->PC_mem,
@@ -115,7 +117,7 @@ MIPSctrl::MIPSctrl( sc_signal<bool> &clock, sc_signal<bool> &rset, mips &m, QWid
 	mdi->addWindow(dmemview);
 	dmemview->hide();
 
-        //registers 
+        //registers
         regfileview = new MIPSregfileview(*mips1.rfile, mdi);
 	regfileview->setCaption( "RegisterFile" );
 
@@ -218,7 +220,7 @@ MIPSctrl::MIPSctrl( sc_signal<bool> &clock, sc_signal<bool> &rset, mips &m, QWid
 	resize(900,500);
 }
 
-/*  
+/*
  *  Destroys the object and frees any allocated resources
  */
 MIPSctrl::~MIPSctrl()

@@ -12,13 +12,13 @@
 
 /**
  * reg_if_id_t module.
- * reg_if_id_t module is the IF/ID pipeline register. 
+ * reg_if_id_t module is the IF/ID pipeline register.
  */
 
 SC_MODULE(reg_if_id_t) {
 
 	// Ports
-	
+
 	sc_in  < bool > clk;
 	sc_in  < bool > reset;
 	sc_in  < bool > enable;
@@ -28,8 +28,8 @@ SC_MODULE(reg_if_id_t) {
 
 	sc_in  < sc_uint<32> > PC_if;     // only for visualization purposes
 	sc_in  < bool >        valid_if;  // only for visualization purposes
-	sc_out < sc_uint<32> > PC_id;     // only for visualization purposes
-	sc_out < bool >        valid_id;  // only for visualization purposes
+	sc_out < sc_uint<32> > PC_id1;     // only for visualization purposes
+	sc_out < bool >        valid_id1;  // only for visualization purposes
 
 	// Modules
 
@@ -56,18 +56,18 @@ SC_MODULE(reg_if_id_t) {
 
 		PC = new regT < sc_uint<32> > ("PC");;
 		PC->din(PC_if);
-		PC->dout(PC_id);
+		PC->dout(PC_id1);
 		PC->clk(clk);
 		PC->enable(enable);
 		PC->reset(reset);
 
 		valid = new regT < bool > ("valid");;
 		valid->din(valid_if);
-		valid->dout(valid_id);
+		valid->dout(valid_id1);
 		valid->clk(clk);
 		valid->enable(enable);
 		valid->reset(reset);
-		
+
 	}
 };
 

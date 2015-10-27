@@ -48,8 +48,17 @@ MIPSarchCanvas::MIPSarchCanvas(mips &m, QObject *parent) : Q3Canvas(parent), mip
     qText->move(253,6);
     qText->setColor(QColor("red"));
     instStage.push_back(qText);
-    pcStage.push_back(new PortValRead(mips1.reg_if_id->PC_id,"PC_id"));
-    validpcStage.push_back(new PortValRead(mips1.reg_if_id->valid_id,"valid_PC_id"));
+    pcStage.push_back(new PortValRead(mips1.reg_if_id->PC_id1,"PC_id"));
+    validpcStage.push_back(new PortValRead(mips1.reg_if_id->valid_id1,"valid_PC_id"));
+
+    qText=new Q3CanvasText("nop",this);
+    qText->setTextFlags(Qt::AlignLeft | Qt::AlignTop);
+    qText->setVisible(true);
+    qText->move(370,6);
+    qText->setColor(QColor("red"));
+    instStage.push_back(qText);
+    pcStage.push_back(new PortValRead(mips1.reg_id1_id2->PC_id2,"PC_id2"));
+    validpcStage.push_back(new PortValRead(mips1.reg_id1_id2->valid_id2,"valid_PC_id2"));
 
     qText=new Q3CanvasText("nop",this);
     qText->setTextFlags(Qt::AlignLeft | Qt::AlignTop);
