@@ -37,6 +37,7 @@ void hazard::detect_hazard()
 	    enable_pc.write(true);
 		enable_ifid.write(true);
 		reset_ifid.write(true);
+
 	}
 	else{
 		reset_ifid.write(false);
