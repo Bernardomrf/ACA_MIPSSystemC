@@ -74,6 +74,12 @@ void mips::buildID1(void)
 
       rfile->clk(clk);
       rfile->reset(reset_regs);
+
+
+        or_reset_regs = new orgate("or_reset_regs");
+        or_reset_regs->din1(reset);
+        or_reset_regs->din2(reset_haz_regs);
+        or_reset_regs->dout(reset_regs);
 }
 
 /**
@@ -263,10 +269,6 @@ void mips::buildArchitecture(void){
       or_reset_id1id2->din2(reset_haz_id1id2);
       or_reset_id1id2->dout(reset_id1id2);
 
-      or_reset_regs = new orgate("or_reset_regs");
-      or_reset_regs->din1(reset);
-      or_reset_regs->din2(reset_haz_regs);
-      or_reset_regs->dout(reset_regs);
 
 
       buildID2();
@@ -388,18 +390,14 @@ void mips::buildArchitecture(void){
       hazard_unit->enable_ifid(enable_ifid);
       hazard_unit->enable_regs(enable_regs);
       hazard_unit->enable_id1id2(enable_id1id2);
-      hazard_unit->enable_id2exe(enable_id2exe);
-      hazard_unit->reset_regs(reset_regs);
+      hazard_unit->reset_regs(reset_haz_regs);
       hazard_unit->reset_id1id2(reset_haz_id1id2);
-      hazard_unit->enable_id1id2(enable_id1id2);
       hazard_unit->enable_id2exe(enable_id2exe);
       hazard_unit->reset_id2exe(reset_haz_id2exe);
       hazard_unit->reset_ifid(reset_haz_ifid);
       hazard_unit->reset_exemem(reset_haz_exmem);
       hazard_unit->MemRead(MemRead);
       hazard_unit->BranchTaken(BranchTaken);
-      hazard_unit->enable_regs(enable_regs);
-      hazard_unit->reset_regs(reset_haz_regs);
 
    }
 
