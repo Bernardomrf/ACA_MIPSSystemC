@@ -37,8 +37,9 @@ void mips::buildIF(void)
 
       mPC->sel(BranchTaken);
       mPC->din0(PC4);
-      mPC->din1(BranchTarget_mem);
+      mPC->din1(BranchTarget);
       mPC->dout(NPC);
+
 }
 
 /**
@@ -56,6 +57,7 @@ void mips::buildID1(void)
       dec1->opcode(opcode);
       dec1->shamt(shamt);
       dec1->funct(funct);
+      dec1->target(target_id1);
 
       // Register File
       rfile = new regfile ("regfile");
@@ -91,6 +93,18 @@ void mips::buildID2(void)
       e1 = new ext("ext");
       e1->din(imm_id2);
       e1->dout(imm_ext);
+
+      // Branch
+      branch_unit = new branch("branch");
+      branch_unit->rs(regdata1);
+      branch_unit->rt(regdata2);
+      branch_unit->branch_in(Branch);
+      branch_unit->opcode(opcode_id2);
+      branch_unit->jtarget(target_id2);
+      branch_unit->imm_ext(imm_ext);
+      branch_unit->PC4(PC4_id2);
+      branch_unit->BranchTaken(BranchTaken);
+      branch_unit->BranchTarget(BranchTarget);
 
       // Control
       ctrl = new control ("control");
@@ -129,17 +143,17 @@ void mips::buildEXE(void)
       alu1->dout(ALUOut);
       alu1->zero(Zero);
 
-      // shift left 2 imm_ext
+      /* shift left 2 imm_ext
       sl2 = new shiftl2("sl2");
       sl2->din(imm_exe);
       sl2->dout(addr_ext);
 
-      // Adds Branch Immediate to Program Counter + 4
+      /* Adds Branch Immediate to Program Counter + 4
       addbr = new add ("addbr");
 
       addbr->op1(PC4_exe);
       addbr->op2(addr_ext);
-      addbr->res(BranchTarget);
+      addbr->res(BranchTarget);*/
 
 }
 
@@ -158,12 +172,13 @@ void mips::buildMEM(void)
       datamem->rd(MemRead_mem);
       datamem->clk(clk);
 
-      // Enables Branch
+      /* Enables Branch
       a1 = new andgate ("a1");
 
       a1->din1(Branch_mem);
       a1->din2(Zero_mem);
       a1->dout(BranchTaken);
+      */
 }
 
 /**
@@ -221,6 +236,8 @@ void mips::buildArchitecture(void){
       reg_id1_id2->rt_id2(rt_id2);
       reg_id1_id2->rd_id1(rd);
       reg_id1_id2->rd_id2(rd_id2);
+      reg_id1_id2->rs_id1(rs);
+      reg_id1_id2->rs_id2(rs_id2);
       reg_id1_id2->imm_id1(imm);
       reg_id1_id2->imm_id2(imm_id2);
       reg_id1_id2->PC4_id1(PC4_id);
@@ -229,6 +246,8 @@ void mips::buildArchitecture(void){
       reg_id1_id2->opcode_id2(opcode_id2);
       reg_id1_id2->funct_id1(funct);
       reg_id1_id2->funct_id2(funct_id2);
+      reg_id1_id2->target_id1(target_id1);
+      reg_id1_id2->target_id2(target_id2);
 
       reg_id1_id2->clk(clk);
       reg_id1_id2->reset(reset_id1id2);
@@ -244,6 +263,11 @@ void mips::buildArchitecture(void){
       or_reset_id1id2->din2(reset_haz_id1id2);
       or_reset_id1id2->dout(reset_id1id2);
 
+      or_reset_regs = new orgate("or_reset_regs");
+      or_reset_regs->din1(reset);
+      or_reset_regs->din2(reset_haz_regs);
+      or_reset_regs->dout(reset_regs);
+
 
       buildID2();
 
@@ -255,8 +279,8 @@ void mips::buildArchitecture(void){
       reg_id2_exe->regb_exe(regb_exe);
       reg_id2_exe->imm_id(imm_ext);
       reg_id2_exe->imm_exe(imm_exe);
-      reg_id2_exe->PC4_id(PC4_id2);
-      reg_id2_exe->PC4_exe(PC4_exe);
+      //reg_id2_exe->PC4_id(PC4_id2);
+      //reg_id2_exe->PC4_exe(PC4_exe);
       reg_id2_exe->WriteReg_id(WriteReg_id2);
       reg_id2_exe->WriteReg_exe(WriteReg_exe);
 
@@ -267,8 +291,8 @@ void mips::buildArchitecture(void){
       reg_id2_exe->MemWrite_exe(MemWrite_exe);
       reg_id2_exe->MemtoReg_id(MemtoReg);
       reg_id2_exe->MemtoReg_exe(MemtoReg_exe);
-      reg_id2_exe->Branch_id(Branch);
-      reg_id2_exe->Branch_exe(Branch_exe);
+      //reg_id2_exe->Branch_id(Branch);
+      //reg_id2_exe->Branch_exe(Branch_exe);
       reg_id2_exe->RegWrite_id(RegWrite);
       reg_id2_exe->RegWrite_exe(RegWrite_exe);
       reg_id2_exe->ALUSrc_id(ALUSrc);
@@ -290,16 +314,6 @@ void mips::buildArchitecture(void){
       or_reset_id2exe->din2(reset_haz_id2exe);
       or_reset_id2exe->dout(reset_id2exe);
 
-
-
-      or_reset_exmem = new orgate("or_reset_exmem");
-      or_reset_exmem->din1(reset);
-      or_reset_exmem->din2(reset_haz_exmem);
-      or_reset_exmem->dout(reset_exmem);
-
-
-
-
       buildEXE();
 
       //reg_exe_mem
@@ -312,14 +326,14 @@ void mips::buildArchitecture(void){
       reg_exe_mem->MemWrite_mem(MemWrite_mem);
       reg_exe_mem->MemtoReg_exe(MemtoReg_exe);
       reg_exe_mem->MemtoReg_mem(MemtoReg_mem);
-      reg_exe_mem->Branch_exe(Branch_exe);
-      reg_exe_mem->Branch_mem(Branch_mem);
+      //reg_exe_mem->Branch_exe(Branch_exe);
+      //reg_exe_mem->Branch_mem(Branch_mem);
       reg_exe_mem->RegWrite_exe(RegWrite_exe);
       reg_exe_mem->RegWrite_mem(RegWrite_mem);
-      reg_exe_mem->Zero_exe(Zero);
-      reg_exe_mem->Zero_mem(Zero_mem);
-      reg_exe_mem->BranchTarget_exe(BranchTarget);
-      reg_exe_mem->BranchTarget_mem(BranchTarget_mem);
+      //reg_exe_mem->Zero_exe(Zero);
+      //reg_exe_mem->Zero_mem(Zero_mem);
+      //reg_exe_mem->BranchTarget_exe(BranchTarget);
+      //reg_exe_mem->BranchTarget_mem(BranchTarget_mem);
       reg_exe_mem->regb_exe(regb_exe);
       reg_exe_mem->regb_mem(regb_mem);
       reg_exe_mem->WriteReg_exe(WriteReg_exe);
@@ -331,6 +345,11 @@ void mips::buildArchitecture(void){
       reg_exe_mem->clk(clk);
       reg_exe_mem->reset(reset_exmem);
       reg_exe_mem->enable(const1);
+
+      or_reset_exmem = new orgate("or_reset_exmem");
+      or_reset_exmem->din1(reset);
+      or_reset_exmem->din2(reset_haz_exmem);
+      or_reset_exmem->dout(reset_exmem);
 
       buildMEM();
 
@@ -372,11 +391,16 @@ void mips::buildArchitecture(void){
       hazard_unit->enable_id2exe(enable_id2exe);
       hazard_unit->reset_regs(reset_regs);
       hazard_unit->reset_id1id2(reset_haz_id1id2);
+      hazard_unit->enable_id1id2(enable_id1id2);
+      hazard_unit->enable_id2exe(enable_id2exe);
       hazard_unit->reset_id2exe(reset_haz_id2exe);
       hazard_unit->reset_ifid(reset_haz_ifid);
       hazard_unit->reset_exemem(reset_haz_exmem);
       hazard_unit->MemRead(MemRead);
       hazard_unit->BranchTaken(BranchTaken);
+      hazard_unit->enable_regs(enable_regs);
+      hazard_unit->reset_regs(reset_haz_regs);
+
    }
 
 mips::~mips(void)

@@ -17,6 +17,7 @@
 #include "dmem.h"
 #include "control.h"
 #include "hazard.h"
+#include "branch.h"
 
 #include "mux.h"
 #include "reg.h"
@@ -65,11 +66,11 @@ SC_MODULE(mips) {
    mux< sc_uint<5> >  *mr;       // selects destination register
    ext *e1;                      // sign extends imm to 32 bits
    orgate *or_reset_id2exe;
-
+   branch *branch_unit;
 
    //ID1
    decode *dec1;      // decodes instruction
-   orgate *or_reset_id1id2;
+   orgate *or_reset_id1id2, *or_reset_regs;
    hazard *hazard_unit;
    regfile *rfile;     // register file
 
@@ -114,13 +115,14 @@ SC_MODULE(mips) {
    sc_signal < sc_uint<6> > opcode;
    sc_signal < sc_uint<5> > shamt;
    sc_signal < sc_uint<6> > funct;
+   sc_signal < sc_uint<26> > target_id1;
 
    //do not delete
    sc_signal < sc_uint<32> > rega_exe, // value of register rs EXE phase
                              regb_exe, // value of regiter rt EXE phase
                              regb_mem; // value of regiter rt MEM phase
 
-   sc_signal <bool> reset_haz_id1id2, reset_id1id2;
+   sc_signal <bool> reset_haz_id1id2, reset_id1id2, reset_exemem, enable_id1id2, enable_id2exe;
 
    sc_signal < sc_uint<32> > PC_id1;      // PC of instruction in ID
    sc_signal < bool >        valid_id1;   // true if there is an instruction in ID
@@ -130,10 +132,11 @@ SC_MODULE(mips) {
    sc_signal < sc_uint<32> > PC4_id2;
    sc_signal < sc_uint<5> > WriteReg_id2;  // register to write
    sc_signal < sc_uint<16> > imm_id2;
-   sc_signal < sc_uint<5> > rt_id2, rd_id2;
+   sc_signal < sc_uint<5> > rt_id2, rd_id2, rs_id2;
    sc_signal < sc_uint<6> > opcode_id2;
    sc_signal < sc_uint<5> > shamt_id2;
    sc_signal < sc_uint<6> > funct_id2;
+   sc_signal < sc_uint<26> > target_id2;
 
    sc_signal < sc_uint<32> > regdata1, // value of register rs
                              regdata2, // value of regiter rt
@@ -141,7 +144,7 @@ SC_MODULE(mips) {
 
     sc_signal < sc_uint<32> > imm_ext;  // imm sign extended
 
-    sc_signal <bool> reset_haz_id2exe, reset_id2exe;
+    sc_signal <bool> reset_haz_id2exe, reset_haz_regs, reset_id2exe, reset_regs, enable_regs;
 
     // control signals
     sc_signal <bool> MemRead, MemWrite, MemtoReg;
