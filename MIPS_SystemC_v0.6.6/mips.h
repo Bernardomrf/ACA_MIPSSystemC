@@ -149,6 +149,8 @@ SC_MODULE(mips) {
     sc_signal <bool> ALUSrc;
     sc_signal < sc_uint<3> > ALUOp;
     sc_signal <bool> Branch;
+    sc_signal <bool> enable_regs, reset_regs, enable_id1id2, enable_id2exe;
+
 
     // the following two signals are not used by the architecture
     // they are used only for visualization purposes

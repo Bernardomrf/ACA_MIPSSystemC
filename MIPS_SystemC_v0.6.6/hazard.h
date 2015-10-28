@@ -35,7 +35,7 @@ SC_MODULE( hazard )
     sc_in < bool > BranchTaken;       // execute branch
 
 
-    sc_out< bool >  enable_pc, enable_ifid, reset_id1id2, reset_id2exe, reset_ifid, reset_exemem;
+    sc_out< bool >  enable_pc, enable_ifid, reset_id1id2, reset_id2exe, reset_ifid, reset_exemem, enable_regs, enable_id1id2, enable_id2exe, reset_regs;
 
     SC_CTOR(hazard)
     {
