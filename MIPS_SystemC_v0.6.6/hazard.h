@@ -28,10 +28,10 @@
 SC_MODULE( hazard )
 {
   public:
-    sc_in< sc_uint<5> >  rs;
-    sc_in< sc_uint<5> >  rt;
-    sc_in< sc_uint<5> >  WriteReg_exe, WriteReg_mem, WriteReg_id2;
-    sc_in< bool >  RegWrite, RegWrite_exe, RegWrite_mem, MemRead, MemRead_exe, MemRead_mem;
+    sc_in< sc_uint<5> >  rs_id2;
+    sc_in< sc_uint<5> >  rt_id2;
+    sc_in< sc_uint<5> >  WriteReg_exe, WriteReg_mem, WriteReg_wb;
+    sc_in< bool >  RegWrite_exe, RegWrite_wb, RegWrite_mem, MemRead;
     sc_in < bool > BranchTaken;       // execute branch
 
 
@@ -40,11 +40,10 @@ SC_MODULE( hazard )
     SC_CTOR(hazard)
     {
         SC_METHOD(detect_hazard);
-        sensitive << rs << rt
+        sensitive << rs_id2 << rt_id2
 		  << WriteReg_exe << RegWrite_exe
 		  << WriteReg_mem << RegWrite_mem
-          << WriteReg_id2 << RegWrite
-          << MemRead_exe << MemRead_mem
+          << WriteReg_wb << RegWrite_wb
 		  << MemRead << BranchTaken;
    }
 

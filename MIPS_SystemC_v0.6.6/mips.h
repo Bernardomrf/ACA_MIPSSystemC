@@ -130,7 +130,7 @@ SC_MODULE(mips) {
    sc_signal < sc_uint<32> > PC4_id2;
    sc_signal < sc_uint<5> > WriteReg_id2;  // register to write
    sc_signal < sc_uint<16> > imm_id2;
-   sc_signal < sc_uint<5> > rt_id2, rd_id2;
+   sc_signal < sc_uint<5> > rt_id2, rd_id2, rs_id2;
    sc_signal < sc_uint<6> > opcode_id2;
    sc_signal < sc_uint<5> > shamt_id2;
    sc_signal < sc_uint<6> > funct_id2;

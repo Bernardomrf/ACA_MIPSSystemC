@@ -7,18 +7,19 @@
 void hazard::detect_hazard()
 {
 	//data hazards
-	if(    rs.read()!=0 && rs.read()==WriteReg_exe.read() && RegWrite_exe.read()==true
-	    || rs.read()!=0 && rs.read()==WriteReg_mem.read() && RegWrite_mem.read()==true
-		|| rs.read()!=0 && rs.read()==WriteReg_id2.read() && RegWrite.read()==true
-		|| rt.read()!=0 && rt.read()==WriteReg_id2.read() && RegWrite.read()==true && MemRead.read()==true
-	    || rt.read()!=0 && rt.read()==WriteReg_exe.read() && RegWrite_exe.read()==true && MemRead_exe.read()==true //MemRead_exe
-	    || rt.read()!=0 && rt.read()==WriteReg_mem.read() && RegWrite_mem.read()==true && MemRead_mem.read()==true ) { // MemRead_mem
+	if(    rs_id2.read()!=0 && rs_id2.read()==WriteReg_exe.read() && RegWrite_exe.read()==true
+	    || rs_id2.read()!=0 && rs_id2.read()==WriteReg_mem.read() && RegWrite_mem.read()==true
+		|| rs_id2.read()!=0 && rs_id2.read()==WriteReg_wb.read() && RegWrite_wb.read()==true
+
+		|| rt_id2.read()!=0 && rt_id2.read()==WriteReg_wb.read() && RegWrite_wb.read()==true && MemRead.read()==false
+	    || rt_id2.read()!=0 && rt_id2.read()==WriteReg_exe.read() && RegWrite_exe.read()==true && MemRead.read()==false //MemRead_exe
+	    || rt_id2.read()!=0 && rt_id2.read()==WriteReg_mem.read() && RegWrite_mem.read()==true && MemRead.read()==false ) { // MemRead_mem
 
 		enable_pc.write(false);
 		enable_ifid.write(false);
-		reset_id1id2.write(true);
+		enable_id1id2.write(false);
 		enable_regs.write(false);
-		perror("HAZARD");
+		reset_id2exe.write(true);
 	}
 	else {
 	    enable_pc.write(true);
@@ -26,6 +27,7 @@ void hazard::detect_hazard()
 		enable_regs.write(true);
 		enable_id1id2.write(true);
 		enable_id2exe.write(true);
+
 		reset_id1id2.write(false);
 		reset_id2exe.write(false);
 		reset_ifid.write(false);

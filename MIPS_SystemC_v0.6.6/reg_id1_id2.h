@@ -29,15 +29,15 @@ SC_MODULE(reg_id1_id2_t) {
 	sc_in  < sc_uint<32> > PC4_id1;
 	sc_out < sc_uint<32> > PC4_id2;
 
-	sc_in  < sc_uint<5> > rt_id1, rd_id1;
-	sc_out < sc_uint<5> > rt_id2, rd_id2;
+	sc_in  < sc_uint<5> > rt_id1, rd_id1, rs_id1;
+	sc_out < sc_uint<5> > rt_id2, rd_id2, rs_id2;
 
 	sc_in  < sc_uint<6> > opcode_id1, funct_id1;
 	sc_out  < sc_uint<6> > opcode_id2, funct_id2;
 
 	regT < sc_uint<32> > *PC4;
 	regT < sc_uint<16> > *imm;
-	regT < sc_uint<5> > *rt,*rd;
+	regT < sc_uint<5> > *rt,*rd,*rs;
 	regT < sc_uint<6> > *opcode,*funct;
 
 	regT < sc_uint<32> > *PC;        // only for visualization purposes
@@ -63,6 +63,13 @@ SC_MODULE(reg_id1_id2_t) {
 		rd->clk(clk);
 		rd->enable(enable);
 		rd->reset(reset);
+
+		rs = new regT < sc_uint<5> >("rs");
+		rs->din(rs_id1);
+		rs->dout(rs_id2);
+		rs->clk(clk);
+		rs->enable(enable);
+		rs->reset(reset);
 
 		PC4 = new regT < sc_uint<32> >("PC4");
 		PC4->din(PC4_id1);
