@@ -7,20 +7,40 @@
 void branch::branch_detect()
 {
     sc_uint<32> target32 = jtarget.read();
-    fprintf(stderr, "regdata1 %d\n", (int)rs.read());
-    fprintf(stderr, "regdata2 %d\n", (int)rt.read());
 
 
-    switch(opcode.read())
+    switch(branch_in.read())
     {
-        case 2:
-            BranchTaken.write(true);
-            BranchTarget.write(target32 | (PC4.read() & 0xFC000000));
+        case 1:
+            if (rs.read() == rt.read()){
+                BranchTaken.write(true);
+                BranchTarget.write(PC4.read() + (imm_ext.read() << 2));
+            }else{
+                BranchTaken.write(false);
+            }
+            break;
 
+        case 2:
+            if (rs.read() != rt.read()){
+                BranchTaken.write(true);
+                BranchTarget.write(PC4.read() + (imm_ext.read() << 2));
+            }else{
+                BranchTaken.write(false);
+            }
+            break;
+
+
+        case 3:
+            if ((int)rs.read() > 0){
+                BranchTaken.write(true);
+                BranchTarget.write(PC4.read() + (imm_ext.read() << 2));
+            }else{
+                BranchTaken.write(false);
+            }
             break;
 
         case 4:
-            if (rs.read() == rt.read() && branch_in.read() == true){
+            if ((int)rs.read() <= 0){
                 BranchTaken.write(true);
                 BranchTarget.write(PC4.read() + (imm_ext.read() << 2));
             }else{
@@ -29,33 +49,12 @@ void branch::branch_detect()
             break;
 
         case 5:
-            if (rs.read() != rt.read() && branch_in.read() == true){
-                BranchTaken.write(true);
-                BranchTarget.write(PC4.read() + (imm_ext.read() << 2));
-            }else{
-                BranchTaken.write(false);
-            }
+            BranchTaken.write(true);
+            BranchTarget.write(target32 | (PC4.read() & 0xFC000000));
+
             break;
 
         case 6:
-            if (rs.read() <= 0 && branch_in.read() == true){
-                BranchTaken.write(true);
-                BranchTarget.write(PC4.read() + (imm_ext.read() << 2));
-            }else{
-                BranchTaken.write(false);
-            }
-            break;
-
-        case 7:
-            if (rs.read() > 0 && branch_in.read() == true){
-                BranchTaken.write(true);
-                BranchTarget.write(PC4.read() + (imm_ext.read() << 2));
-            }else{
-                BranchTaken.write(false);
-            }
-            break;
-
-        case 8:
             BranchTaken.write(true);
             BranchTarget.write(rs.read());
             break;

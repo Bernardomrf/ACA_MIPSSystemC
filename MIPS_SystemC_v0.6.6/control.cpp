@@ -16,6 +16,9 @@ void control::entry()
 	    MemWrite.write(0);
 	    Branch.write(0);
 	    switch(funct.read()) {
+            case 8: // jr
+                    Branch.write(6);
+                    break;
 	       case 32: ALUOp.write(2);
 	                break;
 	       case 34: ALUOp.write(6);
@@ -27,6 +30,15 @@ void control::entry()
 	       case 42: ALUOp.write(7);
 	                break;
 		}
+	    break;
+
+    case  2: // j
+        ALUSrc.write(0);
+	    RegWrite.write(0);
+	    MemRead.write(0);
+	    MemWrite.write(0);
+	    Branch.write(5);
+	    ALUOp.write(6);
 	    break;
 
     case  4: // beq
@@ -42,7 +54,7 @@ void control::entry()
 	    RegWrite.write(0);
 	    MemRead.write(0);
 	    MemWrite.write(0);
-	    Branch.write(1);
+	    Branch.write(2);
 	    ALUOp.write(6);
 	    break;
     case  6: // bltz
@@ -50,7 +62,7 @@ void control::entry()
 	    RegWrite.write(0);
 	    MemRead.write(0);
 	    MemWrite.write(0);
-	    Branch.write(1);
+	    Branch.write(4);
 	    ALUOp.write(6);
 	    break;
 
@@ -59,7 +71,7 @@ void control::entry()
 	    RegWrite.write(0);
 	    MemRead.write(0);
 	    MemWrite.write(0);
-	    Branch.write(1);
+	    Branch.write(3);
 	    ALUOp.write(6);
 	    break;
     case 35: // lw

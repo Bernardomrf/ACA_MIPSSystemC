@@ -6,7 +6,6 @@
  */
 void hazard::detect_hazard()
 {
-	fprintf(stderr, "Branch Taken: %d\n", (int) BranchTaken.read());
 	//data hazards
 	if(    rs_id2.read()!=0 && rs_id2.read()==WriteReg_exe.read() && RegWrite_exe.read()==true
 	    || rs_id2.read()!=0 && rs_id2.read()==WriteReg_mem.read() && RegWrite_mem.read()==true
