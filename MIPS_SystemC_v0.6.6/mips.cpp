@@ -376,6 +376,8 @@ void mips::buildArchitecture(void){
       hazard_unit->reset_ifid(reset_haz_ifid);
       hazard_unit->reset_exemem(reset_haz_exmem);
       hazard_unit->MemRead(MemRead);
+      hazard_unit->MemRead_exe(MemRead_exe);
+      hazard_unit->MemRead_mem(MemRead_exe);
       hazard_unit->BranchTaken(BranchTaken);
    }
 
