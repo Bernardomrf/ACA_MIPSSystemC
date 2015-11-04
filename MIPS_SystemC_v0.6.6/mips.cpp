@@ -73,7 +73,7 @@ void mips::buildID1(void)
       rfile->datawr(WriteVal);
 
       rfile->clk(clk);
-      rfile->reset(reset);
+      rfile->reset(reset_regs);
 
 
         or_reset_regs = new orgate("or_reset_regs");
