@@ -7,14 +7,13 @@
 void branch::branch_detect()
 {
     sc_uint<32> target32 = jtarget.read();
+    fprintf(stderr, "regdata1 %d\n", (int)rs.read());
+    fprintf(stderr, "regdata2 %d\n", (int)rt.read());
+
 
     switch(opcode.read())
     {
         case 2:
-            perror("J");
-            fprintf(stderr, "jtarget: %#08x\n", (int)(jtarget.read()));
-            fprintf(stderr, "pc4 %#08x\n", (int)(PC4.read()));
-            fprintf(stderr, "target32 %#08x\n", (int)(target32));
             BranchTaken.write(true);
             BranchTarget.write(target32 | (PC4.read() & 0xFC000000));
 
@@ -24,6 +23,8 @@ void branch::branch_detect()
             if (rs.read() == rt.read() && branch_in.read() == true){
                 BranchTaken.write(true);
                 BranchTarget.write(PC4.read() + (imm_ext.read() << 2));
+            }else{
+                BranchTaken.write(false);
             }
             break;
 
@@ -31,6 +32,8 @@ void branch::branch_detect()
             if (rs.read() != rt.read() && branch_in.read() == true){
                 BranchTaken.write(true);
                 BranchTarget.write(PC4.read() + (imm_ext.read() << 2));
+            }else{
+                BranchTaken.write(false);
             }
             break;
 
@@ -38,6 +41,8 @@ void branch::branch_detect()
             if (rs.read() <= 0 && branch_in.read() == true){
                 BranchTaken.write(true);
                 BranchTarget.write(PC4.read() + (imm_ext.read() << 2));
+            }else{
+                BranchTaken.write(false);
             }
             break;
 
@@ -45,6 +50,8 @@ void branch::branch_detect()
             if (rs.read() > 0 && branch_in.read() == true){
                 BranchTaken.write(true);
                 BranchTarget.write(PC4.read() + (imm_ext.read() << 2));
+            }else{
+                BranchTaken.write(false);
             }
             break;
 
