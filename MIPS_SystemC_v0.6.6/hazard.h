@@ -31,7 +31,7 @@ SC_MODULE( hazard )
     sc_in< sc_uint<5> >  rs;
     sc_in< sc_uint<5> >  rt;
     sc_in< sc_uint<5> >  WriteReg_exe, WriteReg_mem, WriteReg_id2;
-    sc_in< bool >  RegWrite_exe, RegWrite_mem, MemRead, RegWrite;
+    sc_in< bool >  RegWrite_exe, RegWrite_mem, MemRead, MemRead_exe, MemRead_mem, RegWrite;
     sc_in < bool > BranchTaken;       // execute branch
 
 
@@ -44,6 +44,7 @@ SC_MODULE( hazard )
 		  << WriteReg_exe << RegWrite_exe
 		  << WriteReg_mem << RegWrite_mem
           << WriteReg_id2 << RegWrite
+          << MemRead_exe << MemRead_mem
 		  << MemRead << BranchTaken;
    }
 
