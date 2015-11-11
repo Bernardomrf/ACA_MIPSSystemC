@@ -50,7 +50,7 @@ void branch::branch_detect()
 
         case 5:
             BranchTaken.write(true);
-            BranchTarget.write(target32 | (PC4.read() & 0xFC000000));
+            BranchTarget.write(target32 << 2 | (PC4.read() & 0xF0000000));
 
             break;
 
