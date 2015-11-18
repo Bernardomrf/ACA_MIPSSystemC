@@ -2,8 +2,8 @@ QT              += qt3support
 TEMPLATE	= app
 CONFIG		+= qt thread release
 HEADERS		= mips.h\
-                  imem.h decode.h regfile.h alu.h dmem.h control.h branch.h\
-		  mem32.h mux.h reg.h add.h gates.h ext.h shiftl2.h\
+                  imem.h decode.h regfile.h alu.h dmem.h control.h branch.h forward.h\
+		  mem32.h mux.h mux_forward.h reg.h add.h gates.h ext.h shiftl2.h\
 		  regT.h reg_id1_id2.h reg_id2_exe.h reg_exe_mem.h reg_mem_wb.h\
 		  hazard.h\
 		  mipsaux.h\
@@ -15,7 +15,7 @@ HEADERS		= mips.h\
 		  GUI/regs.xpm GUI/datamem.xpm GUI/instmem.xpm \
 		  GUI/readimem.xpm GUI/readdmem.xpm
 SOURCES		= main.cpp mips.cpp\
-                  imem.cpp decode.cpp regfile.cpp alu.cpp dmem.cpp control.cpp branch.cpp\
+                  imem.cpp decode.cpp regfile.cpp alu.cpp dmem.cpp control.cpp branch.cpp forward.cpp\
 		  mem32.cpp reg.cpp add.cpp gates.cpp ext.cpp shiftl2.cpp\
 		  hazard.cpp\
 		  mipsaux.cpp\

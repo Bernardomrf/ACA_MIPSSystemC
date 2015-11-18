@@ -400,6 +400,17 @@ void mips::buildArchitecture(void){
       hazard_unit->reset_exemem(reset_haz_exmem);
       hazard_unit->MemRead(MemRead);
       hazard_unit->BranchTaken(BranchTaken);
+      
+
+      forward_unit = new forward_unit("forward_unit");
+      forward_unit->rs_id2(rs_id2);
+      forward_unit->rt_id2(rt_id2);
+      forward_unit->WriteReg_exe(WriteReg_exe);
+      forward_unit->RegWrite_exe(RegWrite_exe);
+      forward_unit->WriteReg_mem(WriteReg_mem);
+      forward_unit->RegWrite_mem(RegWrite_mem);
+      forward_unit->MemRead(MemRead);
+      forward_unit->Branch(Branch);
 
    }
 
