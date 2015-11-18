@@ -1,10 +1,10 @@
 
-#include "forward.h"
+#include "forwardunit.h"
 
 /**
  * \c Branch module callback function.
  */
-void forward::forward_detect()
+void forwardunit::forward_detect()
 {
     // Default State
     rs_mux_id2.write(0);
@@ -46,4 +46,14 @@ void forward::forward_detect()
     if ( rt_id2.read() != 0 && rt_id2.read() == WriteReg_mem.read() && RegWrite_mem.read() == true && Branch.read() != 0  && MemRead.read() == false ){
         rt_mux_id2.write(2);
     }
+
+    fprintf(stderr, "rs_mux_id2: %d\n", (int)rs_mux_id2.read() );
+    fprintf(stderr, "rt_mux_id2: %d\n", (int)rt_mux_id2.read() );
+    fprintf(stderr, "rs_mux_exe: %d\n", (int)rs_mux_exe.read() );
+    fprintf(stderr, "rt_mux_exe: %d\n", (int)rt_mux_exe.read() );
+    fprintf(stderr, "\n");
+    // fprintf(stderr, "rs_id2: %s\n", (int)rt_mux_exe.read() );
+    // fprintf(stderr, "rt_id2: %s\n", (int)rt_mux_exe.read() );
+    // fprintf(stderr, "WriteReg_exe: %s\n", (int)rt_mux_exe.read() );
+
 }

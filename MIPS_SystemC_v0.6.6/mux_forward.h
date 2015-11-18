@@ -21,7 +21,7 @@
  *   	- \c T \c dout		- output
  */
 
-template <class T> class mux: public sc_module
+template <class T> class mux_forward: public sc_module
 {
 public:
   sc_in< T >  din0;
@@ -40,7 +40,7 @@ public:
 };
 
 
-template <class T> void mux<T>::entry()
+template <class T> void mux_forward<T>::entry()
 {
     if(sel.read() == 1)
         dout.write(din1.read());
@@ -48,6 +48,13 @@ template <class T> void mux<T>::entry()
         dout.write(din2.read());
     else
         dout.write(din0.read());
+
+    fprintf(stderr, "din0: %d\n", (int)din0.read());
+    fprintf(stderr, "din1: %d\n", (int)din1.read());
+    fprintf(stderr, "din2: %d\n", (int)din2.read());
+    fprintf(stderr, "dout: %d\n", (int)dout.read());
+    fprintf(stderr, "\n");
+
 }
 
 #endif

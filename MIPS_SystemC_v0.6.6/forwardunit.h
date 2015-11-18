@@ -1,5 +1,5 @@
-#ifndef FORWARD_H
-#define FORWARD_H
+#ifndef FORWARDUNIT_H
+#define FORWARDUNIT_H
 
 /**
  *
@@ -8,7 +8,7 @@
 
  #include <systemc.h>
 
- SC_MODULE(forward) {
+ SC_MODULE(forwardunit) {
 
     sc_in< sc_uint<3> >  Branch;
 
@@ -21,6 +21,8 @@
     sc_in< bool >  RegWrite_exe;
     sc_in< bool >  RegWrite_mem;
     sc_in< bool >  MemRead;
+    sc_in< bool >  MemRead_mem;
+
 
     sc_out< sc_uint<2> > rs_mux_exe ;
     sc_out< sc_uint<2> > rt_mux_exe ;
@@ -28,7 +30,7 @@
     sc_out< sc_uint<2> > rt_mux_id2 ;
 
 
-    SC_CTOR(forward)
+    SC_CTOR(forwardunit)
       {
        SC_METHOD(forward_detect);
        sensitive << rs_id2 << rt_id2 << WriteReg_exe

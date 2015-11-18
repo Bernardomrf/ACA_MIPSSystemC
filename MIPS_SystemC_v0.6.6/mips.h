@@ -18,8 +18,10 @@
 #include "control.h"
 #include "hazard.h"
 #include "branch.h"
+#include "forwardunit.h"
 
 #include "mux.h"
+#include "mux_forward.h"
 #include "reg.h"
 #include "ext.h"
 #include "shiftl2.h"
@@ -64,9 +66,12 @@ SC_MODULE(mips) {
    //ID2
    control           *ctrl;      // control
    mux< sc_uint<5> >  *mr;       // selects destination register
+   mux_forward< sc_uint<32> > *mr_id2_rs, *mr_id2_rt;
    ext *e1;                      // sign extends imm to 32 bits
    orgate *or_reset_id2exe;
    branch *branch_unit;
+
+   forwardunit *forward_unit;
 
    //ID1
    decode *dec1;      // decodes instruction
@@ -77,6 +82,7 @@ SC_MODULE(mips) {
    //EXE
    alu               *alu1;      // ALU
    mux< sc_uint<32> > *m1;       // selects 2nd ALU operand
+   mux_forward< sc_uint<32> > *mr_exe_rs, *mr_exe_rt;
    shiftl2 *sl2;                 // shift left 2 imm_ext
    add *addbr;                   // adds imm to PC + 4
    orgate *or_reset_exmem;
@@ -212,6 +218,19 @@ SC_MODULE(mips) {
 
    sc_signal < bool > reset_haz_ifid;
    sc_signal < bool > reset_ifid;
+
+
+   // FORWARD UNIT
+   sc_signal < sc_uint<2> > rs_mux_exe;
+   sc_signal < sc_uint<2> > rs_mux_id2;
+   sc_signal < sc_uint<2> > rt_mux_exe;
+   sc_signal < sc_uint<2> > rt_mux_id2;
+
+   //Mux extra signals
+   sc_signal < sc_uint<32> > rs_mux_id2_out;
+   sc_signal < sc_uint<32> > rt_mux_id2_out;
+   sc_signal < sc_uint<32> > rs_mux_exe_out;
+   sc_signal < sc_uint<32> > rt_mux_exe_out;
 
 
    SC_CTOR(mips) {
