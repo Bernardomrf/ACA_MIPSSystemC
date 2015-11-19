@@ -19,9 +19,9 @@
 
     sc_in< bool >  RegWrite_exe, RegWrite_mem, RegWrite_wb;
 
-    sc_in< bool >  MemRead, MemRead_exe, MemRead_mem;
+    sc_in< bool >  MemRead, MemRead_exe, MemRead_mem, MemRead_wb, MemWrite_mem;
 
-
+    sc_out< bool > mux_mem ;
     sc_out< sc_uint<2> > rs_mux_exe ;
     sc_out< sc_uint<2> > rt_mux_exe ;
     sc_out< sc_uint<2> > rs_mux_id2 ;
@@ -34,7 +34,7 @@
        sensitive << rs_id2 << rt_id2 << rt_exe << rs_exe << rs_mem << rt_mem
                 << WriteReg_exe << WriteReg_wb << RegWrite_wb << MemRead_mem
                 << WriteReg_mem << RegWrite_exe << RegWrite_mem << MemRead
-                << MemRead_exe << Branch;
+                << MemRead_exe << Branch << MemRead_wb << MemWrite_mem;
      }
 
     void forward_detect();

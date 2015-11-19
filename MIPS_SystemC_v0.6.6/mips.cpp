@@ -102,8 +102,8 @@ void mips::buildID2(void)
 
       // Branch
       branch_unit = new branch("branch");
-      branch_unit->rs(regdata1);
-      branch_unit->rt(regdata2);
+      branch_unit->rs(rs_mux_id2_out);
+      branch_unit->rt(rt_mux_id2_out);
       branch_unit->branch_in(Branch);
       branch_unit->opcode(opcode_id2);
       branch_unit->jtarget(target_id2);
@@ -199,11 +199,18 @@ void mips::buildEXE(void)
  */
 void mips::buildMEM(void)
 {
+    mr_mem = new mux< sc_uint<32> > ("muxMem");
+
+    mr_mem->sel(mux_mem);
+    mr_mem->din0(regb_mem);
+    mr_mem->din1(WriteVal);
+    mr_mem->dout(mux_mem_out);
+
       // Data Memory
       datamem = new dmem ("datamem");
 
       datamem->addr(ALUOut_mem);
-      datamem->din(regb_mem);
+      datamem->din(mux_mem_out);
       datamem->dout(MemOut);
       datamem->wr(MemWrite_mem);
       datamem->rd(MemRead_mem);
@@ -216,6 +223,7 @@ void mips::buildMEM(void)
       a1->din2(Zero_mem);
       a1->dout(BranchTaken);
       */
+
 }
 
 /**
@@ -406,6 +414,8 @@ void mips::buildArchitecture(void){
       reg_mem_wb->memOut_wb(MemOut_wb);
       reg_mem_wb->MemtoReg_mem(MemtoReg_mem);
       reg_mem_wb->MemtoReg_wb(MemtoReg_wb);
+      reg_mem_wb->MemRead_mem(MemRead_mem);
+      reg_mem_wb->MemRead_wb(MemRead_wb);
       reg_mem_wb->RegWrite_mem(RegWrite_mem);
       reg_mem_wb->RegWrite_wb(RegWrite_wb);
       reg_mem_wb->WriteReg_mem(WriteReg_mem);
@@ -464,6 +474,9 @@ void mips::buildArchitecture(void){
       forward_unit->MemRead(MemRead);
       forward_unit->MemRead_mem(MemRead_mem);
       forward_unit->MemRead_exe(MemRead_exe);
+      forward_unit->MemRead_wb(MemRead_wb);
+
+      forward_unit->MemWrite_mem(MemWrite_mem);
 
       forward_unit->Branch(Branch);
 
@@ -471,6 +484,8 @@ void mips::buildArchitecture(void){
       forward_unit->rs_mux_id2(rs_mux_id2);
       forward_unit->rt_mux_exe(rt_mux_exe);
       forward_unit->rt_mux_id2(rt_mux_id2);
+      forward_unit->mux_mem(mux_mem);
+
 
 
    }
