@@ -6,22 +6,31 @@
  */
 void hazard::detect_hazard()
 {
-	//data hazards
-	// if(    rs_id2.read()!=0 && rs_id2.read()==WriteReg_exe.read() && RegWrite_exe.read()==true
+	// if( rs_id2.read()!=0 && rs_id2.read()==WriteReg_exe.read() && RegWrite_exe.read()==true
 	//     || rs_id2.read()!=0 && rs_id2.read()==WriteReg_mem.read() && RegWrite_mem.read()==true
 	// 	|| rs_id2.read()!=0 && rs_id2.read()==WriteReg_wb.read() && RegWrite_wb.read()==true
 	//
 	//     || rt_id2.read()!=0 && rt_id2.read()==WriteReg_exe.read() && RegWrite_exe.read()==true && MemRead.read()==false
 	//     || rt_id2.read()!=0 && rt_id2.read()==WriteReg_mem.read() && RegWrite_mem.read()==true && MemRead.read()==false
 	// 	|| rt_id2.read()!=0 && rt_id2.read()==WriteReg_wb.read() && RegWrite_wb.read()==true && MemRead.read()==false ) {
-	//
-	// 	enable_pc.write(false);
-	// 	enable_ifid.write(false);
-	// 	enable_id1id2.write(false);
-	// 	enable_regs.write(false);
-	// 	reset_id2exe.write(true);
-	// }
-	// else 
+
+
+	if(	rs_id2.read() != 0 && rs_id2.read() == WriteReg_exe.read() && RegWrite_exe.read() == true && MemRead_exe.read() == true ||
+		rt_id2.read() != 0 && rt_id2.read() == WriteReg_exe.read() && RegWrite_exe.read() == true && MemRead_exe.read() == true && MemRead.read() == false ||
+
+		rs_id2.read() != 0 && rs_id2.read() == WriteReg_exe.read() && RegWrite_exe.read() == true && branch.read() != 0 ||
+		rt_id2.read() != 0 && rt_id2.read() == WriteReg_exe.read() && RegWrite_exe.read() == true && branch.read() != 0 && MemRead.read() == false ||
+
+		rs_id2.read() != 0 && rs_id2.read() == WriteReg_mem.read() && RegWrite_mem.read() == true && branch.read() != 0 ||
+		rt_id2.read() != 0 && rt_id2.read() == WriteReg_mem.read() && RegWrite_mem.read() == true && branch.read() != 0 && MemRead.read() == false && MemRead_mem.read() == true
+		){
+		enable_pc.write(false);
+		enable_ifid.write(false);
+		enable_id1id2.write(false);
+		enable_regs.write(false);
+		reset_id2exe.write(true);
+	}
+	else
 	if (BranchTaken.read()==true){
 	    enable_pc.write(true);
 		enable_ifid.write(true);
