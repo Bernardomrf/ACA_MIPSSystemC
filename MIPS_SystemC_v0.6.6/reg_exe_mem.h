@@ -34,6 +34,10 @@ SC_MODULE(reg_exe_mem_t) {
 
 	// sc_in  < bool > Branch_exe, Zero_exe;
 	// sc_out < bool > Branch_mem, Zero_mem;
+	sc_in  < sc_uint<5> > rs_exe, rt_exe;
+	sc_out  < sc_uint<5> > rs_mem, rt_mem;
+
+
 
 	sc_in  < sc_uint<32> > PC_exe;   // only for visualization purposes
 	sc_out < sc_uint<32> > PC_mem;   // only for visualization purposes
@@ -43,13 +47,27 @@ SC_MODULE(reg_exe_mem_t) {
 	// Modules
 
 	regT < sc_uint<32> > *aluOut, *regb; //*BranchTarget;
-	regT < sc_uint<5> >  *WriteReg;
+	regT < sc_uint<5> >  *WriteReg, *reg_rs, *reg_rt;
 	regT < bool > *MemRead, *MemWrite, *MemtoReg, /**Branch, *Zero,*/ *RegWrite;
 
 	regT < sc_uint<32> > *PC;        // only for visualization purposes
 	regT < bool > *valid;            // only for visualization purposes
 
 	SC_CTOR(reg_exe_mem_t) {
+
+		reg_rs = new regT < sc_uint<5> > ("reg_rs");;
+		reg_rs->din(rs_exe);
+		reg_rs->dout(rs_mem);
+		reg_rs->clk(clk);
+		reg_rs->enable(enable);
+		reg_rs->reset(reset);
+
+		reg_rt = new regT < sc_uint<5> > ("reg_rt");;
+		reg_rt->din(rt_exe);
+		reg_rt->dout(rt_mem);
+		reg_rt->clk(clk);
+		reg_rt->enable(enable);
+		reg_rt->reset(reset);
 
 		aluOut = new regT < sc_uint<32> > ("aluOut");;
 		aluOut->din(aluOut_exe);

@@ -338,6 +338,12 @@ void mips::buildArchitecture(void){
       reg_id2_exe->valid_id2(valid_id2);
       reg_id2_exe->valid_exe(valid_exe);
 
+      reg_id2_exe->rs_id2(rs_id2);
+      reg_id2_exe->rt_id2(rt_id2);
+      reg_id2_exe->rs_exe(rs_exe);
+      reg_id2_exe->rt_exe(rt_exe);
+
+
       reg_id2_exe->clk(clk);
       reg_id2_exe->reset(reset_id2exe);
       reg_id2_exe->enable(enable_id2exe);
@@ -359,6 +365,12 @@ void mips::buildArchitecture(void){
       reg_exe_mem->MemWrite_mem(MemWrite_mem);
       reg_exe_mem->MemtoReg_exe(MemtoReg_exe);
       reg_exe_mem->MemtoReg_mem(MemtoReg_mem);
+
+      reg_exe_mem->rs_exe(rs_exe);
+      reg_exe_mem->rt_exe(rt_exe);
+      reg_exe_mem->rs_mem(rs_mem);
+      reg_exe_mem->rt_mem(rt_mem);
+
       //reg_exe_mem->Branch_exe(Branch_exe);
       //reg_exe_mem->Branch_mem(Branch_mem);
       reg_exe_mem->RegWrite_exe(RegWrite_exe);
@@ -434,15 +446,27 @@ void mips::buildArchitecture(void){
 
 
       forward_unit = new forwardunit("forward_unit");
+
       forward_unit->rs_id2(rs_id2);
       forward_unit->rt_id2(rt_id2);
+      forward_unit->rs_exe(rs_exe);
+      forward_unit->rt_exe(rt_exe);
+      forward_unit->rs_mem(rs_mem);
+      forward_unit->rt_mem(rt_mem);
+
       forward_unit->WriteReg_exe(WriteReg_exe);
       forward_unit->RegWrite_exe(RegWrite_exe);
       forward_unit->WriteReg_mem(WriteReg_mem);
       forward_unit->RegWrite_mem(RegWrite_mem);
+      forward_unit->WriteReg_wb(WriteReg_wb);
+      forward_unit->RegWrite_wb(RegWrite_wb);
+
       forward_unit->MemRead(MemRead);
       forward_unit->MemRead_mem(MemRead_mem);
+      forward_unit->MemRead_exe(MemRead_exe);
+
       forward_unit->Branch(Branch);
+
       forward_unit->rs_mux_exe(rs_mux_exe);
       forward_unit->rs_mux_id2(rs_mux_id2);
       forward_unit->rt_mux_exe(rt_mux_exe);

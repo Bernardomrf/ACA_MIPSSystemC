@@ -170,6 +170,7 @@ SC_MODULE(mips) {
    sc_signal < bool > Zero;            // ALU output is zero
    sc_signal < sc_uint<32> > imm_exe, PC4_exe;
    sc_signal < sc_uint<32> > addr_ext; // imm_ext shift left 2
+   sc_signal < sc_uint<5> > rt_exe, rs_exe;
    sc_signal < sc_uint<5> > WriteReg_exe;
    sc_signal <bool> reset_haz_exmem, reset_exmem;
    // ALU signals
@@ -188,6 +189,7 @@ SC_MODULE(mips) {
 
    //MEM
    sc_signal < sc_uint<32> > MemOut;   // data memory output
+   sc_signal < sc_uint<5> > rt_mem, rs_mem;
    sc_signal < sc_uint<32> > ALUOut_mem, BranchTarget_mem;
    sc_signal < sc_uint<5> > WriteReg_mem;
    sc_signal <bool> MemRead_mem, MemWrite_mem, MemtoReg_mem;
