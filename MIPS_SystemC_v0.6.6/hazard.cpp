@@ -6,15 +6,6 @@
  */
 void hazard::detect_hazard()
 {
-	// if( rs_id2.read()!=0 && rs_id2.read()==WriteReg_exe.read() && RegWrite_exe.read()==true
-	//     || rs_id2.read()!=0 && rs_id2.read()==WriteReg_mem.read() && RegWrite_mem.read()==true
-	// 	|| rs_id2.read()!=0 && rs_id2.read()==WriteReg_wb.read() && RegWrite_wb.read()==true
-	//
-	//     || rt_id2.read()!=0 && rt_id2.read()==WriteReg_exe.read() && RegWrite_exe.read()==true && MemRead.read()==false
-	//     || rt_id2.read()!=0 && rt_id2.read()==WriteReg_mem.read() && RegWrite_mem.read()==true && MemRead.read()==false
-	// 	|| rt_id2.read()!=0 && rt_id2.read()==WriteReg_wb.read() && RegWrite_wb.read()==true && MemRead.read()==false ) {
-
-
 	if(	rs_id2.read() != 0 && rs_id2.read() == WriteReg_exe.read() && RegWrite_exe.read() == true && MemRead_exe.read() == true ||
 		rt_id2.read() != 0 && rt_id2.read() == WriteReg_exe.read() && RegWrite_exe.read() == true && MemRead_exe.read() == true && MemRead.read() == false ||
 
@@ -59,13 +50,4 @@ void hazard::detect_hazard()
 		reset_regs.write(false);
 
 	}
-// 	if (BranchTaken.read()==true){
-// 	    enable_pc.write(true);
-// 		enable_ifid.write(true);
-// 		reset_ifid.write(true);
-//
-// 	}
-// 	else{
-// 		reset_ifid.write(false);
-// 	}
 }

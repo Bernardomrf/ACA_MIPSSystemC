@@ -43,11 +43,6 @@ template <class T> void mux<T>::entry()
 {
     if(sel.read()) dout.write(din1.read());
     else dout.write(din0.read());
-
-    fprintf(stderr, "sel: %x\n", (int)sel.read());
-    fprintf(stderr, "din0: %x\n", (int)din0.read());
-    fprintf(stderr, "din1: %x\n", (int)din1.read());
-
 }
 
 #endif
