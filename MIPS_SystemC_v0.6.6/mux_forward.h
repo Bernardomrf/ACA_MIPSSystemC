@@ -48,13 +48,6 @@ template <class T> void mux_forward<T>::entry()
         dout.write(din2.read());
     else
         dout.write(din0.read());
-
-    fprintf(stderr, "din0: %d\n", (int)din0.read());
-    fprintf(stderr, "din1: %d\n", (int)din1.read());
-    fprintf(stderr, "din2: %d\n", (int)din2.read());
-    fprintf(stderr, "dout: %d\n", (int)dout.read());
-    fprintf(stderr, "\n");
-
 }
 
 #endif

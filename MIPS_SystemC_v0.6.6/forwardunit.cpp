@@ -13,7 +13,6 @@ void forwardunit::forward_detect()
     rt_mux_exe.write(0);
     mux_mem.write(0);
 
-
     // EXE/MEM --> EXE (rs)
     if ( rs_exe.read() != 0 && rs_exe.read() == WriteReg_mem.read() && RegWrite_mem.read() == true ){
         rs_mux_exe.write(1);
@@ -51,17 +50,4 @@ void forwardunit::forward_detect()
     if ( rt_mem.read() != 0 && rt_mem.read() == WriteReg_wb.read() && RegWrite_wb.read() == true && MemRead_wb.read() == true && MemWrite_mem.read() == true ){
         mux_mem.write(1);
     }
-
-    fprintf(stderr, "rs_mux_id2: %d\n", (int)rs_mux_id2.read() );
-    fprintf(stderr, "rt_mux_id2: %d\n", (int)rt_mux_id2.read() );
-    fprintf(stderr, "rs_mux_exe: %d\n", (int)rs_mux_exe.read() );
-    fprintf(stderr, "rt_mux_exe: %d\n", (int)rt_mux_exe.read() );
-    fprintf(stderr, "\n");
-    fprintf(stderr, "rt_mem: %d\n", (int)rt_mem.read() );
-    fprintf(stderr, "WriteReg_wb: %d\n", (int)WriteReg_wb.read() );
-    fprintf(stderr, "MemRead_wb: %d\n", (int)MemRead_wb.read() );
-    fprintf(stderr, "MemWrite_mem: %d\n", (int)MemWrite_mem.read() );
-    
-    // fprintf(stderr, "WriteReg_exe: %s\n", (int)rt_mux_exe.read() );
-
 }
